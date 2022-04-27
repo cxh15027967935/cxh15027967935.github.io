@@ -4,6 +4,95 @@
   
     
     <entry>
+      <title>webpack的优缺点</title>
+      <link href="/2022/04/27/webpack%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9/"/>
+      <url>/2022/04/27/webpack%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9/</url>
+      
+        <content type="html"><![CDATA[<h3 id="一、优点"><a href="#一、优点" class="headerlink" title="一、优点"></a>一、优点</h3><p>​    1、webpack是以commonJS的形式来书写脚本的，但对AMD/CMD的支持也很全面，方便旧项目进行代码迁移。</p><p>​    2、能被模块化的不仅是JS了</p><p>​    3、开发便捷，能替代部分grunt/gulp的工作，比如打包、压缩混淆、图片转base64等。</p><p>​    4、扩展性强，插件机制完善</p><h3 id="二、缺点"><a href="#二、缺点" class="headerlink" title="二、缺点"></a>二、缺点</h3><p>​    配置复杂</p><p>​    不分包bundle.js体积庞大</p><p>​    只能用于采用模块化开发的项目</p><p>​    打包慢</p><p>​    ES模块除Module外全用babel转换，但是一部分ES2015语法的firefox与chrome（谷歌）浏览器 中能直接跑的代码，无法用webpack编译</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 前端工程化 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>前端代码为何要进行构建和打包</title>
+      <link href="/2022/04/27/%E2%80%98%E5%89%8D%E7%AB%AF%E4%BB%A3%E7%A0%81%E4%B8%BA%E4%BD%95%E8%A6%81%E8%BF%9B%E8%A1%8C%E6%9E%84%E5%BB%BA%E5%92%8C%E6%89%93%E5%8C%85%E2%80%99/"/>
+      <url>/2022/04/27/%E2%80%98%E5%89%8D%E7%AB%AF%E4%BB%A3%E7%A0%81%E4%B8%BA%E4%BD%95%E8%A6%81%E8%BF%9B%E8%A1%8C%E6%9E%84%E5%BB%BA%E5%92%8C%E6%89%93%E5%8C%85%E2%80%99/</url>
+      
+        <content type="html"><![CDATA[<p>1、代码方面体积更小，加载更快（tree-shaking，压缩合并）</p><p>​        编译高级语言和语法（ts，es6，模块化）</p><p>​        兼容性和错误提示（polyfill，postcss，eslint）</p><p>2、研发流程统一、高效的开发环境</p><p>​        统一的构建流程和产出标准</p><p>​        集成公司构建规范（提测，上线）</p><p>打包之后许多零碎的文件打包成一个整体，页面值需请求一次，js文件中使用模块化互相引用，这样能在一定程度上提供页面渲染效率，打包的同时会进行编译，将es6，sass等高级异发进行转换编译，以兼容高版本的浏览器</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 前端工程化 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>‘前端代码为何要进行构建和打包’</title>
+      <link href="/2022/04/27/%E5%89%8D%E7%AB%AF%E4%BB%A3%E7%A0%81%E4%B8%BA%E4%BD%95%E8%A6%81%E8%BF%9B%E8%A1%8C%E6%9E%84%E5%BB%BA%E5%92%8C%E6%89%93%E5%8C%85/"/>
+      <url>/2022/04/27/%E5%89%8D%E7%AB%AF%E4%BB%A3%E7%A0%81%E4%B8%BA%E4%BD%95%E8%A6%81%E8%BF%9B%E8%A1%8C%E6%9E%84%E5%BB%BA%E5%92%8C%E6%89%93%E5%8C%85/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>webpack4和webpack5的区别</title>
+      <link href="/2022/04/27/webpack4%E5%92%8Cwebpack5%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
+      <url>/2022/04/27/webpack4%E5%92%8Cwebpack5%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
+      
+        <content type="html"><![CDATA[<p>更快的构建速度</p><p>更高的版本要求</p><p>更灵活的模块组合</p><p>更智能的缓存优化</p><p>更小的体积</p><h3 id="代码压缩"><a href="#代码压缩" class="headerlink" title="代码压缩"></a>代码压缩</h3><p>webpack4上需要下载安装terser-webpack-plugin插件（代码压缩插件）</p><p>webpack5内部本身自带js压缩功能，它内置了该插件，我们就不用再下载安装。而且mode=“production”（生产模式）的时候会自动开启js压缩功能。</p><h3 id="缓存配置"><a href="#缓存配置" class="headerlink" title="缓存配置"></a>缓存配置</h3><p>webpack4缓存配置</p><p>npm install hard-source-webpack-plugin -D</p><p>webpack5缓存配置</p><p>webpack5内部内置了cache缓存机制，直接配置即可。</p><p>cache会在开发模式下被设置成type：memory而且会在生产模式把cache给禁用掉</p><h3 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h3><p>webpack4启动服务</p><p>通过webpack-dev-server启动服务</p><p>webpack5启动服务</p><p>内置使用webpack serve启动，但是他的日志不是很好，所以一般都加都喜欢用webpack-dev-server优化</p><h3 id="devtool区别"><a href="#devtool区别" class="headerlink" title="devtool区别"></a>devtool区别</h3><p>sourceMap需要在webpack.config.js里面直接配置devtool就可以实现了。而devtool有很多个选项值，不同的选项值，不同的选项生产的map文件不同，打包速度不同。</p><p>一般情况下，我们一般在开发环境配置用chaap-eval-module-source-map，在生产环境用‘none’。</p><p>v4.devtool：cheap-eval-module-source-map</p><p>v5.devtool：eval-cheap-module-source-map</p><h3 id="打包："><a href="#打包：" class="headerlink" title="打包："></a>打包：</h3><p>​    webpack4打包：即使后续没有使用到num1的函数，依然会将代码打包进去</p><p>​    webpack5打包：后续没有使用到num1的函数，不会将代码打包进去</p><h3 id="输出代码："><a href="#输出代码：" class="headerlink" title="输出代码："></a>输出代码：</h3><p>​    webpack4只能输出es5的代码</p><p>​    webpack5新增属性output。ecmaVersion，可以生成ES5和ES6的代码</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 前端工程化 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>什么是webpack，谈谈你对它的理解？</title>
+      <link href="/2022/04/27/webpack/"/>
+      <url>/2022/04/27/webpack/</url>
+      
+        <content type="html"><![CDATA[<h1 id="一、概念"><a href="#一、概念" class="headerlink" title="一、概念"></a>一、概念</h1><p>webpack是前端资源加载/打包的工具，它根据模块的依赖关系进行静态分析，然后根据指定的规则生成静态资源</p><h1 id="二、作用"><a href="#二、作用" class="headerlink" title="二、作用"></a>二、作用</h1><p>webpack可以将多种静态资源js，css，html等转换成一个静态文件，减少页面请求。</p><h1 id="三、工作原理"><a href="#三、工作原理" class="headerlink" title="三、工作原理"></a>三、工作原理</h1><h2 id="（1）核心概念"><a href="#（1）核心概念" class="headerlink" title="（1）核心概念"></a>（1）核心概念</h2><p>​                entry入口指示以哪个文件为入口起点开始打包，分析构建每部依赖图</p><p>​                output出口指示打包后的资源bundles输出到哪里以及命名</p><p>​                loader让webpack能够去处理哪些非JavaScript文件</p><p>​                plugin插件可以用于执行范围更广的任务，从打包优化和压缩，一直到重新定义环境中的变量</p><p>​                mode模式指示相应模式的配置</p><h2 id="（2）流程"><a href="#（2）流程" class="headerlink" title="（2）流程"></a>（2）流程</h2><p>​                流程是一个串行的过程，从启动到结束会依次执行：</p><p>​                初始化参数：从配置文件和shell语句中读取与合并参数，得出最终参数</p><p>​                开始编译：得到最终参数初始化和初始化complier对象，加载所有配置的插件，执行对象run方法开始编译</p><p>​                确定入口：根据配置的entry找到所有入口文件</p><p>​                编译模块：从入口文件出发，调用所有配置的loader对模块进行翻译，再找出该模块依赖的模块，再递归本步骤知道所有入口依赖的文件都经过了本步骤的处理</p><p>​                完成编译：在经过第四步使用loader翻译完所有模块后，得到了每个模块翻译后的最终内容以及他们之间的依赖关系</p><p>​                输出资源：根据入口和模块之间的依赖关系，组装成一个个包含多个模块的Chunk，再把每个Chunk转换成一个单独的文件加入到输出列表，这步是可以修改输出内容的最后机会；</p><p>​                输出完成：在确定好输出内容后，根据配置确定输出的路径和文件名，把文件 内容写入到文件 系统</p><p>webpack会在特定的时间点广播出特定的时间，插件在监听到感兴趣的时间后会执行特定的逻辑，并且插件可以调用webpack提供的API改变webpack的运行结果</p><h2 id="（3）流程细节"><a href="#（3）流程细节" class="headerlink" title="（3）流程细节"></a>（3）流程细节</h2><p>​                    webpack的构建流程可以分为三个阶段：</p><p>​                        初始化：启动构建，读取与合并配置参数，加载plugin，实例化Complier对象</p><p>​                        编译：从entry出发，针对每个module串行调用对应的loder去翻译文件内容，再找到该mode依赖的mode，递归地进行编译处理。</p><p>​                         输出：对编译后的mode组合成chunk，把chunk转换成文件，输出到文件系统。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 前端工程化 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>JavaScript This指向</title>
       <link href="/2022/04/26/This%E6%8C%87%E5%90%91/"/>
       <url>/2022/04/26/This%E6%8C%87%E5%90%91/</url>
