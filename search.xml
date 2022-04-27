@@ -138,8 +138,8 @@
     
     <entry>
       <title>前端代码为何要进行构建和打包</title>
-      <link href="/2022/04/27/%E2%80%98%E5%89%8D%E7%AB%AF%E4%BB%A3%E7%A0%81%E4%B8%BA%E4%BD%95%E8%A6%81%E8%BF%9B%E8%A1%8C%E6%9E%84%E5%BB%BA%E5%92%8C%E6%89%93%E5%8C%85%E2%80%99/"/>
-      <url>/2022/04/27/%E2%80%98%E5%89%8D%E7%AB%AF%E4%BB%A3%E7%A0%81%E4%B8%BA%E4%BD%95%E8%A6%81%E8%BF%9B%E8%A1%8C%E6%9E%84%E5%BB%BA%E5%92%8C%E6%89%93%E5%8C%85%E2%80%99/</url>
+      <link href="/2022/04/27/%E5%89%8D%E7%AB%AF%E4%BB%A3%E7%A0%81%E4%B8%BA%E4%BD%95%E8%A6%81%E8%BF%9B%E8%A1%8C%E6%9E%84%E5%BB%BA%E5%92%8C%E6%89%93%E5%8C%85/"/>
+      <url>/2022/04/27/%E5%89%8D%E7%AB%AF%E4%BB%A3%E7%A0%81%E4%B8%BA%E4%BD%95%E8%A6%81%E8%BF%9B%E8%A1%8C%E6%9E%84%E5%BB%BA%E5%92%8C%E6%89%93%E5%8C%85/</url>
       
         <content type="html"><![CDATA[<p>1、代码方面体积更小，加载更快（tree-shaking，压缩合并）</p><p>​        编译高级语言和语法（ts，es6，模块化）</p><p>​        兼容性和错误提示（polyfill，postcss，eslint）</p><p>2、研发流程统一、高效的开发环境</p><p>​        统一的构建流程和产出标准</p><p>​        集成公司构建规范（提测，上线）</p><p>打包之后许多零碎的文件打包成一个整体，页面值需请求一次，js文件中使用模块化互相引用，这样能在一定程度上提供页面渲染效率，打包的同时会进行编译，将es6，sass等高级异发进行转换编译，以兼容高版本的浏览器</p>]]></content>
       
@@ -149,19 +149,6 @@
           <category> 前端工程化 </category>
           
       </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>‘前端代码为何要进行构建和打包’</title>
-      <link href="/2022/04/27/%E5%89%8D%E7%AB%AF%E4%BB%A3%E7%A0%81%E4%B8%BA%E4%BD%95%E8%A6%81%E8%BF%9B%E8%A1%8C%E6%9E%84%E5%BB%BA%E5%92%8C%E6%89%93%E5%8C%85/"/>
-      <url>/2022/04/27/%E5%89%8D%E7%AB%AF%E4%BB%A3%E7%A0%81%E4%B8%BA%E4%BD%95%E8%A6%81%E8%BF%9B%E8%A1%8C%E6%9E%84%E5%BB%BA%E5%92%8C%E6%89%93%E5%8C%85/</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
       
       
     </entry>
