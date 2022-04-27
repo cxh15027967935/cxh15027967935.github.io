@@ -4,6 +4,120 @@
   
     
     <entry>
+      <title>loader和plugin的不同</title>
+      <link href="/2022/04/27/loader%E5%92%8Cplugin%E7%9A%84%E4%B8%8D%E5%90%8C/"/>
+      <url>/2022/04/27/loader%E5%92%8Cplugin%E7%9A%84%E4%B8%8D%E5%90%8C/</url>
+      
+        <content type="html"><![CDATA[<h3 id="不同的作用"><a href="#不同的作用" class="headerlink" title="不同的作用"></a>不同的作用</h3><p>loader直译为“加载器”。webpack将一切文件视为模块，但是webpack原生是只能解析JavaScript文件，如果想将其他文件打包的话，就会用到loader。所以loader的作用是让webpack拥有了加载和解析非JavaScript文件的能力。</p><p>plugin直译为“插件”。plugin可以扩展webpack的功能，让webpack具有更多的 灵活性。在webpack运行的生命 周期广播出许多时间，plugin可以监听这些事件，在合适的时机通过webpack提供的API改变输出结果 。</p><h3 id="不同的用法"><a href="#不同的用法" class="headerlink" title="不同的用法"></a>不同的用法</h3><p>1、loader在module rules中配置，也就是说他作为模块的解析规则而存在。类型为数组，每一项都是一个Object，里面描述了对于什么类型的文件（test），使用什么加载和使用的 参数</p><p>plugin在plugins中单独配置。类型是数组，每一项是一个plugin的实例，参数都通过构造函数传入。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 前端工程化 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>描述一下webpack中loader和plugin的思路</title>
+      <link href="/2022/04/27/%E6%8F%8F%E8%BF%B0%E4%B8%80%E4%B8%8Bwebpack%E4%B8%ADloader%E5%92%8Cplugin%E7%9A%84%E6%80%9D%E8%B7%AF/"/>
+      <url>/2022/04/27/%E6%8F%8F%E8%BF%B0%E4%B8%80%E4%B8%8Bwebpack%E4%B8%ADloader%E5%92%8Cplugin%E7%9A%84%E6%80%9D%E8%B7%AF/</url>
+      
+        <content type="html"><![CDATA[<p>loader像一个“翻译官”把读到的源文件内容转义成新的文件内容，并且每个loader通过链式 操作 ，将源文件一步步翻译成想要的样子。</p><p>编写loader时要遵循单一原则，每个loader只做一种“转义”工作。每个loader拿到的是源文件内容，可以通过返回值的方式将处理后的内容输出，也可以调用this.callback()方法 ，将内容返回给webpack。还可以通过this.async生成一个callback函数，再用这个callback将处理后的内容输出出去。此外webpack还为开发者 准备了开发loader 的工具函数 集 ——loader-utils。</p><p>相对于loader而言，plugin的编写就灵活了许多。webpack在运行的生命周期中会广播出许多事件，plugin 可以监听这些事件，在合适的时机通过webpack提供的API改变输出结果。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 前端工程化 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>webpack的plugin</title>
+      <link href="/2022/04/27/webpack%E7%9A%84plugin/"/>
+      <url>/2022/04/27/webpack%E7%9A%84plugin/</url>
+      
+        <content type="html"><![CDATA[<h3 id="一、Webpack-的-Plugin-是什么？"><a href="#一、Webpack-的-Plugin-是什么？" class="headerlink" title="一、Webpack 的 Plugin 是什么？"></a>一、Webpack 的 Plugin 是什么？</h3><p>plugin是插件的意思，通常是用于对某个现有的架构进行扩展。</p><p>webpack中的插件，就是对webpack现有功能的各种扩展，比如打包优化，文件压缩等等 。</p><h3 id="二、plugin的作用是什么？"><a href="#二、plugin的作用是什么？" class="headerlink" title="二、plugin的作用是什么？"></a>二、plugin的作用是什么？</h3><p>通过安装和配置第三方的插件，可以拓展webpack的能力，从而让webpack用起来更方便。最常用的webpack插件有：</p><p>1、webpack-dev-server</p><p>类似于node.js阶段用到的nodemon工具</p><p>每当修改了源代码，webpack会自动进行项目的打包和构建</p><p>2、html-webpack-plugin</p><p>webpack中的HTML插件（类似于一个模板引擎插件）</p><p>可以通过此 插件自定制index.html页面的内容</p><h3 id="三、有哪些常见的plugin？他们解决了什么问题？"><a href="#三、有哪些常见的plugin？他们解决了什么问题？" class="headerlink" title="三、有哪些常见的plugin？他们解决了什么问题？"></a>三、有哪些常见的plugin？他们解决了什么问题？</h3><ul><li>define-plugin：定义环境变量</li><li>commons-chunk-plugin：提取公共代码</li><li>uglifyjs-webpack-plugin：通过UglifyES压缩ES6代码</li><li>purgecss-webpack-plugin：擦除无用css</li><li>happypack：多线程处理打包</li><li>webpack-bundle-analyzer：打包分析</li><li>speed-measure-webpack-plugin：构建速度分析</li><li>html-webpack-plugin：</li><li>为html文件中引入的外部资源如script、link动态添加每次compile后的hash，防止引用缓存的外部文件问题</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 前端工程化 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>webpack中有哪些常用的Loader？它们解决了什么问题？</title>
+      <link href="/2022/04/27/webpack%E4%B8%AD%E6%9C%89%E5%93%AA%E4%BA%9B%E5%B8%B8%E7%94%A8%E7%9A%84Loader%EF%BC%9F%E5%AE%83%E4%BB%AC%E8%A7%A3%E5%86%B3%E4%BA%86%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98%EF%BC%9F/"/>
+      <url>/2022/04/27/webpack%E4%B8%AD%E6%9C%89%E5%93%AA%E4%BA%9B%E5%B8%B8%E7%94%A8%E7%9A%84Loader%EF%BC%9F%E5%AE%83%E4%BB%AC%E8%A7%A3%E5%86%B3%E4%BA%86%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98%EF%BC%9F/</url>
+      
+        <content type="html"><![CDATA[<ul><li>file-loader：把文件输出到一个文件夹中，在代码中通过相对 URL 去引用输出的文件</li><li>url-loader：和 file-loader 类似，但是能在文件很小的情况下以 base64 的方式把文件内容注入到代码中去</li><li>source-map-loader：加载额外的 Source Map 文件，以方便断点调试</li><li>image-loader：加载并且压缩图片文件</li><li>babel-loader：把 ES6 转换成 ES5</li><li>css-loader：加载 CSS，支持模块化、压缩、文件导入等特性</li><li>style-loader：把 CSS 代码注入到 JavaScript 中，通过 DOM 操作去加载 CSS。</li><li>eslint-loader：通过 ESLint 检查 JavaScript 代码</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 前端工程化 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>webpack的loader是什么？有什么作用？</title>
+      <link href="/2022/04/27/webpack%E7%9A%84loader%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E6%9C%89%E4%BB%80%E4%B9%88%E4%BD%9C%E7%94%A8%EF%BC%9F/"/>
+      <url>/2022/04/27/webpack%E7%9A%84loader%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E6%9C%89%E4%BB%80%E4%B9%88%E4%BD%9C%E7%94%A8%EF%BC%9F/</url>
+      
+        <content type="html"><![CDATA[<h3 id="Webpack-的-Loader-是什么？"><a href="#Webpack-的-Loader-是什么？" class="headerlink" title="Webpack 的 Loader 是什么？"></a>Webpack 的 Loader 是什么？</h3><p>webpack只能理解JavaScript和json文件，这是wepack开箱可用的自带能力。</p><p>loader可用让webpack能够去处理其他类型的文件，比如scss和ts，并将它们转换为有效的功能离散的chunk文件以供应用程序 使用，以及被添加到依赖图中，也可以将内联图像转换为data URL。简单来说，loader可以将一段代码转换成另一段代码，通常用来将一段特殊代码转换成一段浏览器可识别的代码。</p><p>loader从下到上地取值（evaluate）执行（execute），也就是是从后往前执行。在下面的示例中，从ts-loader开始执行，然后继续执行css-loader，最后以raw-loader为结束。loader有两个属性：test，正则表达式 ，用于识别出哪些文件会被转换，use定义在进行转换时应该使用哪个loader，可以是字符串 、数组和对象。</p><h3 id="有什么作用？"><a href="#有什么作用？" class="headerlink" title="有什么作用？"></a>有什么作用？</h3><p>webpack本身只能处理JavaScript和JSON，而loader为webpack添加了处理其他类型文件的能力。</p><p>webpack默认只能打包js文件，配置里的module.rules数组配置了一组规则，告诉webpack在遇到哪些 文件时使用哪些loader去加载和转换打包成js。</p><p>注意：use属性的值需要是一个由Loader名称组成的数组，Loader的执行顺序是由后到前的；每一个loader都可以通过url querystring的方式传入参数，例如css-loader?minmize中的minmize告诉css-loader要开启css压缩。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 前端工程化 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>什么是bundle,chunk,module</title>
+      <link href="/2022/04/27/%E4%BB%80%E4%B9%88%E6%98%AFbundle-chunk-module/"/>
+      <url>/2022/04/27/%E4%BB%80%E4%B9%88%E6%98%AFbundle-chunk-module/</url>
+      
+        <content type="html"><![CDATA[<p>bundle：是由webpack打包出来的文件</p><p>chunk：是指webpack在进行模块依赖分析的时候，代码分割出来的代码块</p><p>module：是开发中的单个模块</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 前端工程化 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>webpack的优缺点</title>
       <link href="/2022/04/27/webpack%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9/"/>
       <url>/2022/04/27/webpack%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9/</url>
