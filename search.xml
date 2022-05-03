@@ -4,144 +4,11 @@
   
     
     <entry>
-      <title>js原型和原型链</title>
-      <link href="/2022/05/03/js%E5%8E%9F%E5%9E%8B%E5%92%8C%E5%8E%9F%E5%9E%8B%E9%93%BE/"/>
-      <url>/2022/05/03/js%E5%8E%9F%E5%9E%8B%E5%92%8C%E5%8E%9F%E5%9E%8B%E9%93%BE/</url>
-      
-        <content type="html"><![CDATA[<p>1、构造函数<br>（1）<strong>构造函数是一种特殊的函数，主要用来初始化对象，即为对象成员变量赋初始值，它总与 new 一起使用。</strong><br>我们可以把对象中一些公共的属性和方法抽取出来，然后封装到这个函数里面。<br>（2）new 在执行时会做四件事情：<br>① 在内存中创建一个新的空对象。<br>② 让 this 指向这个新的对象。<br>③ 执行构造函数里面的代码，给这个新对象添加属性和方法。<br>④ 返回这个新对象（所以构造函数里面不需要 return ）。<br>2、静态成员和实例成员<br>（1）实例成员<br>实例成员就是构造函数内部通过this添加的成员，<strong>实例成员只能通过实例化的对象来访</strong><br>（2）静态成员<br>静态成员 在构造函数本身上添加的成员，<strong>静态成员只能通过构造函数来访问</strong><br>3、<strong>构造函数原型对象prototype</strong><br>（1）构造函数方法很好用，但是存在浪费内存的问题– 实例化构造函数调用里面函数，会为函数开辟单独的内存空间<br>（2）原型对象实现共享：公共属性定义到构造函数里面, 公共的方法我们放到原型对象身上。<br>（3）<strong>JavaScript 规定，每一个构造函数都有一个 prototype 属性，指向另一个对象。</strong><br>注意这个 prototype 就是一个对象，这个对象的所有属性和方法，都会被构造函数所拥有。<br>我们可以把那些不变的方法，直接定义在 prototype 对象上，这样所有对象的实例就可以共享这些方法。<br>4、<strong>对象原型__proto__</strong><br>（1）<strong>对象都会有一个属性 proto 指向构造函数的 prototype 原型对象，</strong> 之所以我们对象可以使用构造函数 prototype 原型对象的属性和方法，就是因为对象有 <strong>proto</strong> 原型的存在。<br>（2）**__proto__对象原型和原型对象 prototype 是等价的**<br>（3）__proto__对象原型的意义就在于为对象的查找机制提供一个方向，或者说一条路线，但是它是一个非标准属性，因此实际开发中，不可以使用这个属性，它只是内部指向原型对象 prototype<br>5、<strong>原型constructor构造函数</strong><br>（1）<em>*对象原型（ proto）和构造函数（prototype）原型对象里面都有一个属性 constructor 属性,我们称为构造函数，它指回构造函数本身。 **（2）**constructor 作用 – 记录该对象引用于哪个构造函数，它可以让原型对象重新指向原来的构造函数。</em>*<br>（3）一般情况下，对象的方法都在构造函数的原型对象中设置。如果有多个对象的方法，我们可以给原型对象采取对象形式赋值，但是这样就会覆盖构造函数原型对象原来的内容，这样修改后的原型对象 constructor 就不再指向当前构造函数了。此时，我们可以在修改后的原型对象中，添加一个 constructor 指向原来的构造函数。<br>注：<strong>如果我们修改了原来的原型对象,给原型对象赋值的是一个对象,则必须手动的利用constructor指回原来的构造函数</strong><br>（4）__proto__对象原型的意义就在于为对象的查找机制提供一个方向，或者说一条路线，但是它是一个非标准属性，因此实际开发中，不可以使用这个属性，它只是内部指向原型对象 prototype</p><p>6、利用原型 – 扩展数组类（Array）的功能：<br>（1）为每一个数组对象添加一个方法，可以查找某个元素的所在位置<br>（2）调用find方法返回参数在数组中出现的位置<br>7、原型链<br>每一个实例对象又有一个proto属性，指向的构造函数的原型对象，构造函数的原型对象也是一个对象，也有proto属性，这样一层一层往上找就形成了原型链。<br><img src="/2022/05/03/js%E5%8E%9F%E5%9E%8B%E5%92%8C%E5%8E%9F%E5%9E%8B%E9%93%BE/2196136-20210101140952621-845639098.png" alt="img"><br>8、构造函数实例和原型对象三角关系<br>（1）构造函数的prototype属性指向了构造函数原型对象<br>（2）实例对象是由构造函数创建的,实例对象的__proto__属性指向了构造函数的原型对象<br>（3）构造函数的原型对象的constructor属性指向了构造函数,实例对象的原型的constructor属性也指向了构造函数<br>9、原型链和成员的查找机制<br>（1）当访问一个对象的属性（包括方法）时，首先查找这个对象自身有没有该属性。<br>（2）如果没有就查找它的原型（也就是 __proto__指向的 prototype 原型对象）。<br>（3）如果还没有就查找原型对象的原型（Object的原型对象）。<br>（4）<strong>依此类推一直找到 Object 为止（null）</strong><br>（5）__proto__对象原型的意义就在于为对象成员查找机制提供一个方向，或者说一条路线。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> JavaScript </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>js实现继承的几种方法</title>
-      <link href="/2022/05/02/js%E5%AE%9E%E7%8E%B0%E7%BB%A7%E6%89%BF%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/"/>
-      <url>/2022/05/02/js%E5%AE%9E%E7%8E%B0%E7%BB%A7%E6%89%BF%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/</url>
-      
-        <content type="html"><![CDATA[<h3 id="JavaScript实现继承的几种方法"><a href="#JavaScript实现继承的几种方法" class="headerlink" title="JavaScript实现继承的几种方法"></a>JavaScript实现继承的几种方法</h3><p>JS作为面向对象的弱类型语言，继承也是其非常强大的特性之一。那么如何在JS中实现继承呢？让我们拭目以待。</p><p><strong>在ES5中：</strong></p><p>既然要实现继承，那么首先我们得有一个父类</p><h4 id="1、原型链继承"><a href="#1、原型链继承" class="headerlink" title="1、原型链继承"></a>1、原型链继承</h4><p><strong>核心：</strong> 将父类的实例作为子类的原型</p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/** es5 1.原型链继承 */</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">a</span> () &#123;<span class="comment">//父类</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">name</span> = <span class="string">&#x27;张三&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">b</span> () &#123;<span class="comment">//子类</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">age</span> = <span class="number">20</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">b.<span class="property"><span class="keyword">prototype</span></span> = <span class="keyword">new</span> <span class="title function_">a</span>()<span class="comment">//将子类原型对象等于实例化父类</span></span><br><span class="line"><span class="keyword">let</span> cha = <span class="keyword">new</span> <span class="title function_">b</span>()</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(cha.<span class="property">age</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(cha.<span class="property">name</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure><p><strong>核心原理：</strong></p><p>将子类所共享的方法提取出来，让子类的prototype原型对象=new 父类()</p><p>本质：子类原型对象等于是实例化父类，因为父类实例化之后另外开辟空间，就不会影响原来父类原型对象</p><p><strong>优点：</strong>子类的实例可继承的属性—子类的实例的构造函数的属性、父类构造函数属性、父类原型的属性，但不会继承父类实例的属性</p><p><strong>缺点：</strong></p><p>​    1、在创建子类的实例时，不能向父类的构造函数中传递参数。严格来说，是没有办法在不影响所有对象实例的情况下，给父类的构造函数传递参数</p><p>​    2、所有子类的实例都会共享父类实例的属性：包含引用类型值的原型属性会被所有实例共享。</p><p>​    3、继承方式单一。</p><h4 id="2、构造函数继承"><a href="#2、构造函数继承" class="headerlink" title="2、构造函数继承"></a>2、构造函数继承</h4><p><strong>基本思想：</strong>通过call()或apply()方法在子类构造函数的内部调用父类构造函数</p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/** es5 2.构造函数继承 */</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">a</span> () &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">name</span> = <span class="string">&#x27;张三&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">b</span> () &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">age</span> = <span class="number">20</span></span><br><span class="line">    a.<span class="title function_">call</span>(<span class="variable language_">this</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> chb = <span class="keyword">new</span> <span class="title function_">b</span>()</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(chb.<span class="property">age</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(chb.<span class="property">name</span>);</span><br></pre></td></tr></table></figure><p><strong>实现的本质：</strong>在子类构造函数的内部调用超类型构造函数，使用aapply()和call() 方法</p><p><strong>优点：</strong></p><p>​    1、子类实例可以向父类构造函数传递参数</p><p>​    2、解决了包含引用类型值的原型属性会被所有实例共享的问题</p><p>​    3、使用call()或者apply可以同时继承多个构造函数的属性，解决了继承方式单一的问题</p><p><strong>缺点：</strong></p><p>​    1、只能继承父类构造函数的属性</p><p>​    2、每次使用都要重新调用，无法实现构造函数的复用。</p><p>​    3、每个子类实例都有父类构造函数的副本</p><h4 id="3、组合继承"><a href="#3、组合继承" class="headerlink" title="3、组合继承"></a>3、组合继承</h4><p><strong>基本思想：</strong>使用原型链实现对原型属性和方法的继承，通过借用构造函数来实现对实例属性的继承</p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/** es5 3.组合式继承 */</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">a</span> () &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">name</span> = <span class="string">&#x27;张三&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">b</span> () &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">age</span> = <span class="number">20</span></span><br><span class="line">    a.<span class="title function_">call</span>(<span class="variable language_">this</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">b.<span class="property"><span class="keyword">prototype</span></span> = <span class="keyword">new</span> <span class="title function_">a</span>()</span><br><span class="line"><span class="keyword">let</span> chb = <span class="keyword">new</span> <span class="title function_">b</span>()</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(chb.<span class="property">age</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(chb.<span class="property">name</span>);</span><br></pre></td></tr></table></figure><p><strong>优点：</strong></p><p>​    1、可以复用、也可以传参、还可以继承父类原型上的属性。</p><p>​    2、每个子类的实例引入的构造函数属性都是私有的。</p><p><strong>缺点：</strong>调用了两次父类构造函数，而且子类的构造函数会代替原型上的父类构造函数。</p><p><strong>在ES6中：</strong></p><p>​    class继承 通过extents关键字</p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/** es6 extents */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Par</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span> () &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">name</span> = <span class="string">&#x27;张三&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Child</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Par</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span> () &#123;</span><br><span class="line">        <span class="variable language_">super</span>()</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">age</span> = <span class="number">20</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> c  = <span class="keyword">new</span> <span class="title class_">Child</span>()</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(c.<span class="property">age</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(c.<span class="property">name</span>);</span><br></pre></td></tr></table></figure>]]></content>
-      
-      
-      <categories>
-          
-          <category> JavaScript </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>vue-router原理</title>
-      <link href="/2022/05/02/vue-router/"/>
-      <url>/2022/05/02/vue-router/</url>
-      
-        <content type="html"><![CDATA[<p><strong>vue-router</strong>是vue官方的路由管理器。它和vue.js的核心深度集成，让构建单页面应用变得易如反掌。vue-router默认是hash模式，还有一种是history模式。</p><p><strong>mode</strong></p><ul><li><code>hash</code></li><li><code>history</code></li></ul><p><strong>原理：</strong></p>]]></content>
-      
-      
-      <categories>
-          
-          <category> vue </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>vuex的原理</title>
-      <link href="/2022/05/02/vuex/"/>
-      <url>/2022/05/02/vuex/</url>
-      
-        <content type="html"><![CDATA[<p>vuex集中式存储管理应用的所有组件的状态，并以相应的规则保证状态以可预测的方式发生变化。</p><h3 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h3><p>state：状态中心</p><p>mutations：更改状态</p><p>actions：异步更改状态</p><p>getters：获取状态</p><p>modules：将state分成多个modules，便于管理</p><h4 id="一-、状态-state"><a href="#一-、状态-state" class="headerlink" title="一 、状态-state"></a>一 、状态-state</h4><p>state保存应用状态</p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> <span class="title class_">Vuex</span>.<span class="title class_">Store</span>(&#123; <span class="attr">state</span>: &#123; <span class="attr">counter</span>:<span class="number">0</span> &#125;,&#125;)</span><br></pre></td></tr></table></figure><ol><li>状态变更 <strong>- mutations</strong></li></ol><blockquote><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mutations`用于修改状态，`store.js</span><br></pre></td></tr></table></figure></blockquote><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> <span class="title class_">Vuex</span>.<span class="title class_">Store</span>(&#123;</span><br><span class="line">    <span class="attr">mutations</span>:</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="title function_">add</span>(<span class="params">state</span>) &#123;</span><br><span class="line">        state.<span class="property">counter</span>++</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br></pre></td></tr></table></figure><ol><li>派生状态 <strong>- getters</strong></li></ol><blockquote><p>从state派生出新状态，类似计算属性</p></blockquote><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> <span class="title class_">Vuex</span>.<span class="title class_">Store</span>(&#123;</span><br><span class="line">    <span class="attr">getters</span>:</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="title function_">doubleCounter</span>(<span class="params">state</span>) &#123; <span class="comment">// 计算剩余数量 return state.counter * 2;</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br></pre></td></tr></table></figure><ol><li>动作 <strong>- actions</strong></li></ol><p>加业务逻辑，类似于<code>controller</code></p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> <span class="title class_">Vuex</span>.<span class="title class_">Store</span>(&#123;</span><br><span class="line">    <span class="attr">actions</span>:</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="title function_">add</span>(<span class="params">&#123;</span></span><br><span class="line"><span class="params">        commit</span></span><br><span class="line"><span class="params">      &#125;</span>) &#123;</span><br><span class="line">        <span class="built_in">setTimeout</span>(() = &gt;&#123;&#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br></pre></td></tr></table></figure><p>测试代码:</p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> @<span class="attr">click</span>=<span class="string">&quot;$store.commit(&#x27;add&#x27;)&quot;</span>&gt;</span>counter: &#123;&#123;$store.state.counter&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> @<span class="attr">click</span>=<span class="string">&quot;$store.dispatch(&#x27;add&#x27;)&quot;</span>&gt;</span>async counter: &#123;&#123;$store.state.counter&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>double:&#123;&#123;$store.getters.doubleCounter&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure><p><strong>vuex原理解析</strong></p><ul><li><p>实现一个插件:声明<code>Store</code>类，挂载<code>$store</code></p></li><li><p>```<br>Store</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">  具体实现:</span><br><span class="line"></span><br><span class="line">  - 创建响应式的`state`，保存`mutations`、`actions`和`getters`</span><br><span class="line">  - 实现`commit`根据用户传入`type`执行对应`mutation`</span><br><span class="line">  - 实现`dispatch`根据用户传入`type`执行对应`action`，同时传递上下文</span><br><span class="line">  - 实现`getters`，按照`getters`定义对`state`做派生</span><br><span class="line"></span><br><span class="line">```js</span><br><span class="line">// 目标1：实现Store类，管理state（响应式的），commit方法和dispatch方法</span><br><span class="line">// 目标2：封装一个插件，使用更容易使用</span><br><span class="line">let Vue;</span><br><span class="line"></span><br><span class="line">class Store &#123;</span><br><span class="line">  constructor(options) &#123;</span><br><span class="line">    // 定义响应式的state</span><br><span class="line">    // this.$store.state.xx</span><br><span class="line">    // 借鸡生蛋</span><br><span class="line">    this._vm = new Vue(&#123;</span><br><span class="line">      data: &#123;</span><br><span class="line">        $$state: options.state</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    </span><br><span class="line">    this._mutations = options.mutations</span><br><span class="line">    this._actions = options.actions</span><br><span class="line"></span><br><span class="line">    // 绑定this指向</span><br><span class="line">    this.commit = this.commit.bind(this)</span><br><span class="line">    this.dispatch = this.dispatch.bind(this)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  // 只读</span><br><span class="line">  get state() &#123;</span><br><span class="line">    return this._vm._data.$$state</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  set state(val) &#123;</span><br><span class="line">    console.error(&#x27;不能直接赋值呀，请换别的方式！！天王盖地虎！！&#x27;);</span><br><span class="line">    </span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  // 实现commit方法，可以修改state</span><br><span class="line">  commit(type, payload) &#123;</span><br><span class="line">    // 拿出mutations中的处理函数执行它</span><br><span class="line">    const entry = this._mutations[type]</span><br><span class="line">    if (!entry) &#123;</span><br><span class="line">      console.error(&#x27;未知mutaion类型&#x27;);</span><br><span class="line">      return</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    entry(this.state, payload)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  dispatch(type, payload) &#123;</span><br><span class="line">    const entry = this._actions[type]</span><br><span class="line"></span><br><span class="line">    if (!entry) &#123;</span><br><span class="line">      console.error(&#x27;未知action类型&#x27;);</span><br><span class="line">      return</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 上下文可以传递当前store实例进去即可</span><br><span class="line">    entry(this, payload)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function install(_Vue)&#123;</span><br><span class="line">  Vue = _Vue</span><br><span class="line"></span><br><span class="line">  // 混入store实例</span><br><span class="line">  Vue.mixin(&#123;</span><br><span class="line">    beforeCreate() &#123;</span><br><span class="line">      if (this.$options.store) &#123;</span><br><span class="line">        Vue.prototype.$store = this.$options.store</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// &#123; Store, install &#125;相当于Vuex</span><br><span class="line">// 它必须实现install方法</span><br><span class="line">export default &#123; Store, install &#125;</span><br></pre></td></tr></table></figure></li></ul>]]></content>
-      
-      
-      <categories>
-          
-          <category> vue </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>vue生命周期</title>
-      <link href="/2022/05/02/vue%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"/>
-      <url>/2022/05/02/vue%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</url>
-      
-        <content type="html"><![CDATA[<h2 id="一、生命周期是什么"><a href="#一、生命周期是什么" class="headerlink" title="一、生命周期是什么"></a>一、生命周期是什么</h2><p>生命周期<code>（Life Cycle）</code>的概念应用很广泛，特别是在政治、经济、环境、技术、社会等诸多领域经常出现，其基本涵义可以通俗地理解为“从摇篮到坟墓”<code>（Cradle-to-Grave）</code>的整个过程在<code>Vue</code>中实例从创建到销毁的过程就是生命周期，即指从创建、初始化数据、编译模板、挂载Dom→渲染、更新→渲染、卸载等一系列过程我们可以把组件比喻成工厂里面的一条流水线，每个工人（生命周期）站在各自的岗位，当任务流转到工人身边的时候，工人就开始工作PS：在<code>Vue</code>生命周期钩子会自动绑定 <code>this</code> 上下文到实例中，因此你可以访问数据，对 <code>property</code> 和方法进行运算这意味着<strong>你不能使用箭头函数来定义一个生命周期方法</strong> (例如 <code>created: () =&gt; this.fetchTodos()</code>)</p><h2 id="二、生命周期有哪些"><a href="#二、生命周期有哪些" class="headerlink" title="二、生命周期有哪些"></a>二、生命周期有哪些</h2><p>Vue生命周期总共可以分为8个阶段：创建前后, 载入前后,更新前后,销毁前销毁后，以及一些特殊场景的生命周期</p><table><thead><tr><th align="left">生命周期</th><th align="left">描述</th></tr></thead><tbody><tr><td align="left">beforeCreate</td><td align="left">组件实例被创建之初</td></tr><tr><td align="left">created</td><td align="left">组件实例已经完全创建</td></tr><tr><td align="left">beforeMount</td><td align="left">组件挂载之前</td></tr><tr><td align="left">mounted</td><td align="left">组件挂载到实例上去之后</td></tr><tr><td align="left">beforeUpdate</td><td align="left">组件数据发生变化，更新之前</td></tr><tr><td align="left">updated</td><td align="left">组件数据更新之后</td></tr><tr><td align="left">beforeDestroy</td><td align="left">组件实例销毁之前</td></tr><tr><td align="left">destroyed</td><td align="left">组件实例销毁之后</td></tr><tr><td align="left">activated</td><td align="left">keep-alive 缓存的组件激活时</td></tr><tr><td align="left">deactivated</td><td align="left">keep-alive 缓存的组件停用时调用</td></tr><tr><td align="left">errorCaptured</td><td align="left">捕获一个来自子孙组件的错误时被调用</td></tr></tbody></table><h2 id="三、生命周期整体流程"><a href="#三、生命周期整体流程" class="headerlink" title="三、生命周期整体流程"></a>三、生命周期整体流程</h2><p><code>Vue</code>生命周期流程图</p><p><img src="/2022/05/02/vue%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/20210408093135.png"></p><h4 id="具体分析"><a href="#具体分析" class="headerlink" title="#具体分析"></a><a href="https://vue3js.cn/interview/vue/lifecycle.html#%E5%85%B7%E4%BD%93%E5%88%86%E6%9E%90">#</a>具体分析</h4><p><strong>beforeCreate -&gt; created</strong></p><ul><li>初始化<code>vue</code>实例，进行数据观测</li></ul><p><strong>created</strong></p><ul><li>完成数据观测，属性与方法的运算，<code>watch</code>、<code>event</code>事件回调的配置</li><li>可调用<code>methods</code>中的方法，访问和修改data数据触发响应式渲染<code>dom</code>，可通过<code>computed</code>和<code>watch</code>完成数据计算</li><li>此时<code>vm.$el</code> 并没有被创建</li></ul><p><strong>created -&gt; beforeMount</strong></p><ul><li>判断是否存在<code>el</code>选项，若不存在则停止编译，直到调用<code>vm.$mount(el)</code>才会继续编译</li><li>优先级：<code>render</code> &gt; <code>template</code> &gt; <code>outerHTML</code></li><li><code>vm.el</code>获取到的是挂载<code>DOM</code>的</li></ul><p><strong>beforeMount</strong></p><ul><li>在此阶段可获取到<code>vm.el</code></li><li>此阶段<code>vm.el</code>虽已完成DOM初始化，但并未挂载在<code>el</code>选项上</li></ul><p><strong>beforeMount -&gt; mounted</strong></p><ul><li>此阶段<code>vm.el</code>完成挂载，<code>vm.$el</code>生成的<code>DOM</code>替换了<code>el</code>选项所对应的<code>DOM</code></li></ul><p><strong>mounted</strong></p><ul><li><code>vm.el</code>已完成<code>DOM</code>的挂载与渲染，此刻打印<code>vm.$el</code>，发现之前的挂载点及内容已被替换成新的DOM</li></ul><p><strong>beforeUpdate</strong></p><ul><li>更新的数据必须是被渲染在模板上的（<code>el</code>、<code>template</code>、<code>rende</code>r之一）</li><li>此时<code>view</code>层还未更新</li><li>若在<code>beforeUpdate</code>中再次修改数据，不会再次触发更新方法</li></ul><p><strong>updated</strong></p><ul><li>完成<code>view</code>层的更新</li><li>若在<code>updated</code>中再次修改数据，会再次触发更新方法（<code>beforeUpdate</code>、<code>updated</code>）</li></ul><p><strong>beforeDestroy</strong></p><ul><li>实例被销毁前调用，此时实例属性与方法仍可访问</li></ul><p><strong>destroyed</strong></p><ul><li>完全销毁一个实例。可清理它与其它实例的连接，解绑它的全部指令及事件监听器</li><li>并不能清除DOM，仅仅销毁实例</li></ul><p><strong>使用场景分析</strong></p><table><thead><tr><th align="left">生命周期</th><th align="left">描述</th></tr></thead><tbody><tr><td align="left">beforeCreate</td><td align="left">执行时组件实例还未创建，通常用于插件开发中执行一些初始化任务</td></tr><tr><td align="left">created</td><td align="left">组件初始化完毕，各种数据可以使用，常用于异步数据获取</td></tr><tr><td align="left">beforeMount</td><td align="left">未执行渲染、更新，dom未创建</td></tr><tr><td align="left">mounted</td><td align="left">初始化结束，dom已创建，可用于获取访问数据和dom元素</td></tr><tr><td align="left">beforeUpdate</td><td align="left">更新前，可用于获取更新前各种状态</td></tr><tr><td align="left">updated</td><td align="left">更新后，所有状态已是最新</td></tr><tr><td align="left">beforeDestroy</td><td align="left">销毁前，可用于一些定时器或订阅的取消</td></tr><tr><td align="left">destroyed</td><td align="left">组件已销毁，作用同上</td></tr></tbody></table>]]></content>
-      
-      
-      <categories>
-          
-          <category> vue </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>nextTick作用与原理</title>
-      <link href="/2022/05/02/nextTick/"/>
-      <url>/2022/05/02/nextTick/</url>
-      
-        <content type="html"><![CDATA[<h3 id="作用：是为了可以获取更新后的DOM。"><a href="#作用：是为了可以获取更新后的DOM。" class="headerlink" title="作用：是为了可以获取更新后的DOM。"></a>作用：是为了可以获取更新后的DOM。</h3><p>由于vue DOM更新时异步执行的，即修改数据时，视图不会立即更新，而是会监听数据变化，并缓存在同一事件循环中，等同一数据循环中的所有数据变化完成之后，再统一进行视图更新。为了确保得到更新后的DOM，所以设置了Vue.nextTick(),就是在下次DOM更新循环结束之后执行延迟回调。在修改数据之后立即使用这个方法，获取 更新后的DOM。</p><h3 id="原理："><a href="#原理：" class="headerlink" title="原理："></a>原理：</h3><p>nextTick可以让我们在下次DOM更新循环结束之后执行延迟回调，用于获取更新后的DOM</p><p>主要使用了宏任务和微任务。根据执行环境分别尝试采用</p><p>promise</p><p>MutationObserver</p><p>setimmediate</p><p>如果以上不都不行则采用setTimeout</p><p>定义了一个异步方法，多次调用nextTick会将方法存入队列中，通过这个异步方法清空当前队列。</p><p>在写项目的时候，当时点击按钮要获取一个元素的内容，但是发现了第二次点击的时候才能获取到，后来在网上查了一下，发现是vue异步更新队列的问题，后来是通过$nextTick解决的。</p><p>应用场景：需要在视图更新之后，基于新的视图进行操作。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> vue </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>vue3响应式原理</title>
-      <link href="/2022/05/01/vue3%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/"/>
-      <url>/2022/05/01/vue3%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/</url>
+      <link href="/2021/05/01/vue3%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/"/>
+      <url>/2021/05/01/vue3%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/</url>
       
-        <content type="html"><![CDATA[<p>vue3.x改用proxy代替object.defineProperty。因为proxy可以直接监听对象和数组的变化，并且有多达13中拦截方法。并且作为新标准手袋浏览器厂商重点持续的性能优化。</p><p>proxy只会代理对象的第一层，那么vue3又是怎样处理这个问题的呢？</p><p>判断当前Reflect.get的返回值是否为object，如果是则再通过reactive方法做代理，这样就实现了深度观测。</p><p><strong>监测数组的时候可能触发多次get/set，那么如何防止触发多次呢？</strong></p><p>我们可以判读key是否为当前被代理对象target自身属性，也可以判断旧值与新值是否相等，只有满足以上两个条件之一时，才有可能执行trigger</p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 模拟 Vue 中的 data 选项 </span></span><br><span class="line"><span class="keyword">let</span> data = &#123;</span><br><span class="line">  <span class="attr">msg</span>: <span class="string">&#x27;hello&#x27;</span>,</span><br><span class="line">  <span class="attr">count</span>: <span class="number">0</span> </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 模拟 Vue 实例</span></span><br><span class="line"><span class="keyword">let</span> vm = <span class="keyword">new</span> <span class="title class_">Proxy</span>(data, &#123;</span><br><span class="line">  <span class="comment">// 当访问 vm 的成员会执行</span></span><br><span class="line">  get (target, key) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;get, key: &#x27;</span>, key, target[key])</span><br><span class="line">    <span class="keyword">return</span> target[key]</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// 当设置 vm 的成员会执行</span></span><br><span class="line">  set (target, key, newValue) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;set, key: &#x27;</span>, key, newValue)</span><br><span class="line">    <span class="keyword">if</span> (target[key] === newValue) &#123;</span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    target[key] = newValue</span><br><span class="line">    <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;#app&#x27;</span>).<span class="property">textContent</span> = target[key]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试</span></span><br><span class="line">vm.<span class="property">msg</span> = <span class="string">&#x27;Hello World&#x27;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(vm.<span class="property">msg</span>)</span><br></pre></td></tr></table></figure><p><strong>Proxy 相比于 defineProperty 的优势</strong></p><ul><li>数组变化也能监听到</li><li>不需要深度遍历监听</li></ul><p><code>Proxy</code> 是 <code>ES6</code> 中新增的功能，可以用来自定义对象中的操作</p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> p = <span class="keyword">new</span> <span class="title class_">Proxy</span>(target, handler);</span><br><span class="line"><span class="comment">// `target` 代表需要添加代理的对象</span></span><br><span class="line"><span class="comment">// `handler` 用来自定义对象中的操作</span></span><br><span class="line"><span class="comment">// 可以很方便的使用 Proxy 来实现一个数据绑定和监听</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> <span class="title function_">onWatch</span> = (<span class="params">obj, setBind, getLogger</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">let</span> handler = &#123;</span><br><span class="line">    <span class="title function_">get</span>(<span class="params">target, property, receiver</span>) &#123;</span><br><span class="line">      <span class="title function_">getLogger</span>(target, property)</span><br><span class="line">      <span class="keyword">return</span> <span class="title class_">Reflect</span>.<span class="title function_">get</span>(target, property, receiver);</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="title function_">set</span>(<span class="params">target, property, value, receiver</span>) &#123;</span><br><span class="line">      <span class="title function_">setBind</span>(value);</span><br><span class="line">      <span class="keyword">return</span> <span class="title class_">Reflect</span>.<span class="title function_">set</span>(target, property, value);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Proxy</span>(obj, handler);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> obj = &#123; <span class="attr">a</span>: <span class="number">1</span> &#125;</span><br><span class="line"><span class="keyword">let</span> value</span><br><span class="line"><span class="keyword">let</span> p = <span class="title function_">onWatch</span>(obj, <span class="function">(<span class="params">v</span>) =&gt;</span> &#123;</span><br><span class="line">  value = v</span><br><span class="line">&#125;, <span class="function">(<span class="params">target, property</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Get &#x27;<span class="subst">$&#123;property&#125;</span>&#x27; = <span class="subst">$&#123;target[property]&#125;</span>`</span>);</span><br><span class="line">&#125;)</span><br><span class="line">p.<span class="property">a</span> = <span class="number">2</span> <span class="comment">// bind `value` to `2`</span></span><br><span class="line">p.<span class="property">a</span> <span class="comment">// -&gt; Get &#x27;a&#x27; = 2</span></span><br></pre></td></tr></table></figure><p><strong>总结</strong></p><p><img src="/2022/05/01/vue3%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/20210408091523.png"></p><ul><li>Vue<ul><li>记录传入的选项，设置 <code>$data/$el</code></li><li>把 <code>data</code> 的成员注入到 <code>Vue</code> 实例</li><li>负责调用 <code>Observer</code> 实现数据响应式处理(数据劫持)</li><li>负责调用 <code>Compiler</code> 编译指令/插值表达式等</li></ul></li><li>Observer<ul><li>数据劫持<ul><li>负责把 <code>data</code> 中的成员转换成 <code>getter/setter</code></li><li>负责把多层属性转换成 <code>getter/setter</code></li><li>如果给属性赋值为新对象，把新对象的成员设置为 <code>getter/setter</code></li></ul></li><li>添加 <code>Dep</code> 和 <code>Watcher</code> 的依赖关系</li><li>数据变化发送通知</li></ul></li><li>Compiler<ul><li>负责编译模板，解析指令/插值表达式</li><li>负责页面的首次渲染过程</li><li>当数据变化后重新渲染</li></ul></li><li>Dep<ul><li>收集依赖，添加订阅者(<code>watcher</code>)</li><li>通知所有订阅者</li></ul></li><li>Watcher<ul><li>自身实例化的时候往<code>dep</code>对象中添加自己</li><li>当数据变化<code>dep</code>通知所有的 <code>Watcher</code> 实例更新视图</li></ul></li></ul>]]></content>
-      
-      
-      <categories>
-          
-          <category> vue </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>vue2响应式原理</title>
-      <link href="/2022/05/01/vue%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/"/>
-      <url>/2022/05/01/vue%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/</url>
-      
-        <content type="html"><![CDATA[<p>vue的响应式原理是核心通过ES5的保护对象object.defindeProperty中的访问器属性中的get和set方法，data中声明的属性都被添加了访问器属性，当读取data中的数据时自动调用get方法，当修改data中的数据时，自动调用set方法，检测到数据的变化，会通知观察者wacher，观察者wacher自动触发render当前 组件（子组件不会重新渲染），生成新的虚拟DOM数，vue框架会遍历并对比新虚拟DOM树和旧虚拟DOM树中每一个节点的差别，并 记录下来 ，最后，加载操作，将所有记录的不同点 ，局部修改到真实DOM树上。</p><p><img src="/2022/05/01/vue%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/15.png"></p><p>虚拟DOM（Virtauil DOM）；用js对象模拟的，保存当前视图内所有DOM节点对象基本描述属性和节点间关系的数结构。用js对象，描述每个节点，及其父子关系，形成虚拟DOM对象结构。</p><p>因为只要在data中声明的基本数据类型的数据，基本不存在数据不响应问题，所以重点介绍数组和对象在vue中的数据响应问题，vue可以检测对象属性的修改，但无法监听数组的所有变动及对象的新增和删除，只能使用数组变异方法及$set方法。</p><p><img src="/2022/05/01/vue%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/16.png"></p><p>可以看到，arrayMethods首先继承了Array，然后 对数组中所有能改变 数组自身的方法，如push，pop等这些方法进行重写。重写后的方法会执行它们本身原有的逻辑并对能增加数组长度的3个方法push、unshift、splice方法做了判断，获取到插入的值，然后把新添加的值变成一个响应式对象，并且在调用ob.dep.notify（）手动触发依赖通知 ，这就很好地解释了用vm.items.splice（newLength）方法可以检测到变化</p><p>总结：vue采用数据劫持结合发布—订阅模式的方法，通过object.defindeProperty（）来劫持各个属性setter，getter，在数据变动时发布消息给订阅者，触发相应的监听回调。</p><p><img src="/2022/05/01/vue%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/vue.jpeg"></p><ul><li><code>Observer</code> 遍历数据对象，给所有属性加上 <code>setter</code> 和 <code>getter</code>，监听数据的变化</li><li><code>compile</code> 解析模板指令，将模板中的变量替换成数据，然后初始化渲染页面视图，并将每个指令对应的节点绑定更新函数，添加监听数据的订阅者，一旦数据有变动，收到通知，更新视图</li></ul><blockquote><p><code>Watcher</code> 订阅者是 <code>Observer</code> 和 <code>Compile</code> 之间通信的桥梁，主要做的事情</p></blockquote><ul><li>在自身实例化时往属性订阅器 (<code>dep</code>) 里面添加自己</li><li>待属性变动 <code>dep.notice()</code> 通知时，调用自身的 <code>update()</code> 方法，并触发 <code>Compile</code> 中绑定的回调</li></ul><p>**Object.defineProperty()**，那么它的用法是什么，以及优缺点是什么呢？</p><ul><li>可以检测对象中数据发生的修改</li><li>对于复杂的对象，层级很深的话，是不友好的，需要经行深度监听，这样子就需要递归到底，这也是它的缺点。</li><li>对于一个对象中，如果你新增加属性，删除属性，**Object.defineProperty()**是不能观测到的，那么应该如何解决呢？可以通过<code>Vue.set()</code>和<code>Vue.delete()</code>来实现。</li></ul><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 模拟 Vue 中的 data 选项 </span></span><br><span class="line"><span class="keyword">let</span> data = &#123;</span><br><span class="line">    <span class="attr">msg</span>: <span class="string">&#x27;hello&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 模拟 Vue 的实例 </span></span><br><span class="line"><span class="keyword">let</span> vm = &#123;&#125;</span><br><span class="line"><span class="comment">// 数据劫持:当访问或者设置 vm 中的成员的时候，做一些干预操作</span></span><br><span class="line"><span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(vm, <span class="string">&#x27;msg&#x27;</span>, &#123;</span><br><span class="line">  <span class="comment">// 可枚举(可遍历)</span></span><br><span class="line">  <span class="attr">enumerable</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="comment">// 可配置(可以使用 delete 删除，可以通过 defineProperty 重新定义) </span></span><br><span class="line">  <span class="attr">configurable</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="comment">// 当获取值的时候执行 </span></span><br><span class="line">  get () &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;get: &#x27;</span>, data.<span class="property">msg</span>)</span><br><span class="line">    <span class="keyword">return</span> data.<span class="property">msg</span> </span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// 当设置值的时候执行 </span></span><br><span class="line">  set (newValue) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;set: &#x27;</span>, newValue) </span><br><span class="line">    <span class="keyword">if</span> (newValue === data.<span class="property">msg</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    data.<span class="property">msg</span> = newValue</span><br><span class="line">    <span class="comment">// 数据更改，更新 DOM 的值 </span></span><br><span class="line">    <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;#app&#x27;</span>).<span class="property">textContent</span> = data.<span class="property">msg</span></span><br><span class="line">  &#125; </span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试</span></span><br><span class="line">vm.<span class="property">msg</span> = <span class="string">&#x27;Hello World&#x27;</span> </span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(vm.<span class="property">msg</span>)</span><br></pre></td></tr></table></figure>]]></content>
+        <content type="html"><![CDATA[<p>vue3.x改用proxy代替object.defineProperty。因为proxy可以直接监听对象和数组的变化，并且有多达13中拦截方法。并且作为新标准手袋浏览器厂商重点持续的性能优化。</p><p>proxy只会代理对象的第一层，那么vue3又是怎样处理这个问题的呢？</p><p>判断当前Reflect.get的返回值是否为object，如果是则再通过reactive方法做代理，这样就实现了深度观测。</p><p><strong>监测数组的时候可能触发多次get/set，那么如何防止触发多次呢？</strong></p><p>我们可以判读key是否为当前被代理对象target自身属性，也可以判断旧值与新值是否相等，只有满足以上两个条件之一时，才有可能执行trigger</p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 模拟 Vue 中的 data 选项 </span></span><br><span class="line"><span class="keyword">let</span> data = &#123;</span><br><span class="line">  <span class="attr">msg</span>: <span class="string">&#x27;hello&#x27;</span>,</span><br><span class="line">  <span class="attr">count</span>: <span class="number">0</span> </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 模拟 Vue 实例</span></span><br><span class="line"><span class="keyword">let</span> vm = <span class="keyword">new</span> <span class="title class_">Proxy</span>(data, &#123;</span><br><span class="line">  <span class="comment">// 当访问 vm 的成员会执行</span></span><br><span class="line">  get (target, key) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;get, key: &#x27;</span>, key, target[key])</span><br><span class="line">    <span class="keyword">return</span> target[key]</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// 当设置 vm 的成员会执行</span></span><br><span class="line">  set (target, key, newValue) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;set, key: &#x27;</span>, key, newValue)</span><br><span class="line">    <span class="keyword">if</span> (target[key] === newValue) &#123;</span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    target[key] = newValue</span><br><span class="line">    <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;#app&#x27;</span>).<span class="property">textContent</span> = target[key]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试</span></span><br><span class="line">vm.<span class="property">msg</span> = <span class="string">&#x27;Hello World&#x27;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(vm.<span class="property">msg</span>)</span><br></pre></td></tr></table></figure><p><strong>Proxy 相比于 defineProperty 的优势</strong></p><ul><li>数组变化也能监听到</li><li>不需要深度遍历监听</li></ul><p><code>Proxy</code> 是 <code>ES6</code> 中新增的功能，可以用来自定义对象中的操作</p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> p = <span class="keyword">new</span> <span class="title class_">Proxy</span>(target, handler);</span><br><span class="line"><span class="comment">// `target` 代表需要添加代理的对象</span></span><br><span class="line"><span class="comment">// `handler` 用来自定义对象中的操作</span></span><br><span class="line"><span class="comment">// 可以很方便的使用 Proxy 来实现一个数据绑定和监听</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> <span class="title function_">onWatch</span> = (<span class="params">obj, setBind, getLogger</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">let</span> handler = &#123;</span><br><span class="line">    <span class="title function_">get</span>(<span class="params">target, property, receiver</span>) &#123;</span><br><span class="line">      <span class="title function_">getLogger</span>(target, property)</span><br><span class="line">      <span class="keyword">return</span> <span class="title class_">Reflect</span>.<span class="title function_">get</span>(target, property, receiver);</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="title function_">set</span>(<span class="params">target, property, value, receiver</span>) &#123;</span><br><span class="line">      <span class="title function_">setBind</span>(value);</span><br><span class="line">      <span class="keyword">return</span> <span class="title class_">Reflect</span>.<span class="title function_">set</span>(target, property, value);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Proxy</span>(obj, handler);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> obj = &#123; <span class="attr">a</span>: <span class="number">1</span> &#125;</span><br><span class="line"><span class="keyword">let</span> value</span><br><span class="line"><span class="keyword">let</span> p = <span class="title function_">onWatch</span>(obj, <span class="function">(<span class="params">v</span>) =&gt;</span> &#123;</span><br><span class="line">  value = v</span><br><span class="line">&#125;, <span class="function">(<span class="params">target, property</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`Get &#x27;<span class="subst">$&#123;property&#125;</span>&#x27; = <span class="subst">$&#123;target[property]&#125;</span>`</span>);</span><br><span class="line">&#125;)</span><br><span class="line">p.<span class="property">a</span> = <span class="number">2</span> <span class="comment">// bind `value` to `2`</span></span><br><span class="line">p.<span class="property">a</span> <span class="comment">// -&gt; Get &#x27;a&#x27; = 2</span></span><br></pre></td></tr></table></figure><p><strong>总结</strong></p><p><img src="/2021/05/01/vue3%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/20210408091523.png"></p><ul><li>Vue<ul><li>记录传入的选项，设置 <code>$data/$el</code></li><li>把 <code>data</code> 的成员注入到 <code>Vue</code> 实例</li><li>负责调用 <code>Observer</code> 实现数据响应式处理(数据劫持)</li><li>负责调用 <code>Compiler</code> 编译指令/插值表达式等</li></ul></li><li>Observer<ul><li>数据劫持<ul><li>负责把 <code>data</code> 中的成员转换成 <code>getter/setter</code></li><li>负责把多层属性转换成 <code>getter/setter</code></li><li>如果给属性赋值为新对象，把新对象的成员设置为 <code>getter/setter</code></li></ul></li><li>添加 <code>Dep</code> 和 <code>Watcher</code> 的依赖关系</li><li>数据变化发送通知</li></ul></li><li>Compiler<ul><li>负责编译模板，解析指令/插值表达式</li><li>负责页面的首次渲染过程</li><li>当数据变化后重新渲染</li></ul></li><li>Dep<ul><li>收集依赖，添加订阅者(<code>watcher</code>)</li><li>通知所有订阅者</li></ul></li><li>Watcher<ul><li>自身实例化的时候往<code>dep</code>对象中添加自己</li><li>当数据变化<code>dep</code>通知所有的 <code>Watcher</code> 实例更新视图</li></ul></li></ul>]]></content>
       
       
       <categories>
@@ -157,8 +24,8 @@
     
     <entry>
       <title>如何利用webpack来优化前端性能？（提高性能和体验）!</title>
-      <link href="/2022/04/30/%E5%A6%82%E4%BD%95%E5%88%A9%E7%94%A8webpack%E6%9D%A5%E4%BC%98%E5%8C%96%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%EF%BC%9F%EF%BC%88%E6%8F%90%E9%AB%98%E6%80%A7%E8%83%BD%E5%92%8C%E4%BD%93%E9%AA%8C%EF%BC%89/"/>
-      <url>/2022/04/30/%E5%A6%82%E4%BD%95%E5%88%A9%E7%94%A8webpack%E6%9D%A5%E4%BC%98%E5%8C%96%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%EF%BC%9F%EF%BC%88%E6%8F%90%E9%AB%98%E6%80%A7%E8%83%BD%E5%92%8C%E4%BD%93%E9%AA%8C%EF%BC%89/</url>
+      <link href="/2019/09/30/%E5%A6%82%E4%BD%95%E5%88%A9%E7%94%A8webpack%E6%9D%A5%E4%BC%98%E5%8C%96%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%EF%BC%9F%EF%BC%88%E6%8F%90%E9%AB%98%E6%80%A7%E8%83%BD%E5%92%8C%E4%BD%93%E9%AA%8C%EF%BC%89/"/>
+      <url>/2019/09/30/%E5%A6%82%E4%BD%95%E5%88%A9%E7%94%A8webpack%E6%9D%A5%E4%BC%98%E5%8C%96%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%EF%BC%9F%EF%BC%88%E6%8F%90%E9%AB%98%E6%80%A7%E8%83%BD%E5%92%8C%E4%BD%93%E9%AA%8C%EF%BC%89/</url>
       
         <content type="html"><![CDATA[<p>随着前端的项目逐渐扩大，必然会带来的一个问题就是性能<br>尤其在大型复杂的项目中，前端业务可能因为一个小小的数据依赖，导致整个页面卡顿甚至崩溃<br>一般项目在完成后，会通过webpack进行打包，利用webpack对 前端项目性能优化是一个十分重要的环节</p><p>通过webpack优化前端的手段有：<br>用webpack优化前端性能是指优化webpack的输出结果，让打包的最终结果在浏览器运行快速高效。</p><p>● JS压缩代码。</p><p>删除多余的代码、注释、简化代码的写法等等方式。</p><p>terser是一个JavaScript的解释、绞肉机、压缩机的工具集，可以帮助我们压缩、丑化我们的代码，让bundle更小 在production模式下，webpack默认使用Terser</p><p>可以利用webpack的UglifyJsPlugin和ParallelUglifyPlugin来压缩JS文件， 利用cssnano（css-loader?minimize）来压缩css<br>● 利用CDN加速。</p><p>在构建过程中，将引用的静态资源路径修改为CDN上对应的路径。可以利用webpack对于output参数和各loader的publicPath参数来修改资源路径<br>● 删除死代码（Tree Shaking）。</p><p>将代码中永远不会走到的片段删除掉。可以通过在启动webpack时追加参数–optimize-minimize来实现</p><p>●Code Splitting。</p><p>将代码路由维度或者组件分块（chunk），这样做到 按需加载，同时可以充分利用浏览器缓存</p><p>● 提取公共第三方库。 </p><p>SplitChunkpligin插件来进行公共模块抽取，利用浏览器缓存可以长期缓存这些无需频繁变动的公共代码</p>]]></content>
       
@@ -175,104 +42,9 @@
     
     
     <entry>
-      <title>loader和plugin的不同</title>
-      <link href="/2022/04/27/loader%E5%92%8Cplugin%E7%9A%84%E4%B8%8D%E5%90%8C/"/>
-      <url>/2022/04/27/loader%E5%92%8Cplugin%E7%9A%84%E4%B8%8D%E5%90%8C/</url>
-      
-        <content type="html"><![CDATA[<h3 id="不同的作用"><a href="#不同的作用" class="headerlink" title="不同的作用"></a>不同的作用</h3><p>loader直译为“加载器”。webpack将一切文件视为模块，但是webpack原生是只能解析JavaScript文件，如果想将其他文件打包的话，就会用到loader。所以loader的作用是让webpack拥有了加载和解析非JavaScript文件的能力。</p><p>plugin直译为“插件”。plugin可以扩展webpack的功能，让webpack具有更多的 灵活性。在webpack运行的生命 周期广播出许多时间，plugin可以监听这些事件，在合适的时机通过webpack提供的API改变输出结果 。</p><h3 id="不同的用法"><a href="#不同的用法" class="headerlink" title="不同的用法"></a>不同的用法</h3><p>1、loader在module rules中配置，也就是说他作为模块的解析规则而存在。类型为数组，每一项都是一个Object，里面描述了对于什么类型的文件（test），使用什么加载和使用的 参数</p><p>plugin在plugins中单独配置。类型是数组，每一项是一个plugin的实例，参数都通过构造函数传入。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 前端工程化 </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>描述一下webpack中loader和plugin的思路</title>
-      <link href="/2022/04/27/%E6%8F%8F%E8%BF%B0%E4%B8%80%E4%B8%8Bwebpack%E4%B8%ADloader%E5%92%8Cplugin%E7%9A%84%E6%80%9D%E8%B7%AF/"/>
-      <url>/2022/04/27/%E6%8F%8F%E8%BF%B0%E4%B8%80%E4%B8%8Bwebpack%E4%B8%ADloader%E5%92%8Cplugin%E7%9A%84%E6%80%9D%E8%B7%AF/</url>
-      
-        <content type="html"><![CDATA[<p>loader像一个“翻译官”把读到的源文件内容转义成新的文件内容，并且每个loader通过链式 操作 ，将源文件一步步翻译成想要的样子。</p><p>编写loader时要遵循单一原则，每个loader只做一种“转义”工作。每个loader拿到的是源文件内容，可以通过返回值的方式将处理后的内容输出，也可以调用this.callback()方法 ，将内容返回给webpack。还可以通过this.async生成一个callback函数，再用这个callback将处理后的内容输出出去。此外webpack还为开发者 准备了开发loader 的工具函数 集 ——loader-utils。</p><p>相对于loader而言，plugin的编写就灵活了许多。webpack在运行的生命周期中会广播出许多事件，plugin 可以监听这些事件，在合适的时机通过webpack提供的API改变输出结果。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 前端工程化 </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>webpack的plugin</title>
-      <link href="/2022/04/27/webpack%E7%9A%84plugin/"/>
-      <url>/2022/04/27/webpack%E7%9A%84plugin/</url>
-      
-        <content type="html"><![CDATA[<h3 id="一、Webpack-的-Plugin-是什么？"><a href="#一、Webpack-的-Plugin-是什么？" class="headerlink" title="一、Webpack 的 Plugin 是什么？"></a>一、Webpack 的 Plugin 是什么？</h3><p>plugin是插件的意思，通常是用于对某个现有的架构进行扩展。</p><p>webpack中的插件，就是对webpack现有功能的各种扩展，比如打包优化，文件压缩等等 。</p><h3 id="二、plugin的作用是什么？"><a href="#二、plugin的作用是什么？" class="headerlink" title="二、plugin的作用是什么？"></a>二、plugin的作用是什么？</h3><p>通过安装和配置第三方的插件，可以拓展webpack的能力，从而让webpack用起来更方便。最常用的webpack插件有：</p><p>1、webpack-dev-server</p><p>类似于node.js阶段用到的nodemon工具</p><p>每当修改了源代码，webpack会自动进行项目的打包和构建</p><p>2、html-webpack-plugin</p><p>webpack中的HTML插件（类似于一个模板引擎插件）</p><p>可以通过此 插件自定制index.html页面的内容</p><h3 id="三、有哪些常见的plugin？他们解决了什么问题？"><a href="#三、有哪些常见的plugin？他们解决了什么问题？" class="headerlink" title="三、有哪些常见的plugin？他们解决了什么问题？"></a>三、有哪些常见的plugin？他们解决了什么问题？</h3><ul><li>define-plugin：定义环境变量</li><li>commons-chunk-plugin：提取公共代码</li><li>uglifyjs-webpack-plugin：通过UglifyES压缩ES6代码</li><li>purgecss-webpack-plugin：擦除无用css</li><li>happypack：多线程处理打包</li><li>webpack-bundle-analyzer：打包分析</li><li>speed-measure-webpack-plugin：构建速度分析</li><li>html-webpack-plugin：</li><li>为html文件中引入的外部资源如script、link动态添加每次compile后的hash，防止引用缓存的外部文件问题</li></ul>]]></content>
-      
-      
-      <categories>
-          
-          <category> 前端工程化 </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>webpack中有哪些常用的Loader？它们解决了什么问题？</title>
-      <link href="/2022/04/27/webpack%E4%B8%AD%E6%9C%89%E5%93%AA%E4%BA%9B%E5%B8%B8%E7%94%A8%E7%9A%84Loader%EF%BC%9F%E5%AE%83%E4%BB%AC%E8%A7%A3%E5%86%B3%E4%BA%86%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98%EF%BC%9F/"/>
-      <url>/2022/04/27/webpack%E4%B8%AD%E6%9C%89%E5%93%AA%E4%BA%9B%E5%B8%B8%E7%94%A8%E7%9A%84Loader%EF%BC%9F%E5%AE%83%E4%BB%AC%E8%A7%A3%E5%86%B3%E4%BA%86%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98%EF%BC%9F/</url>
-      
-        <content type="html"><![CDATA[<ul><li>file-loader：把文件输出到一个文件夹中，在代码中通过相对 URL 去引用输出的文件</li><li>url-loader：和 file-loader 类似，但是能在文件很小的情况下以 base64 的方式把文件内容注入到代码中去</li><li>source-map-loader：加载额外的 Source Map 文件，以方便断点调试</li><li>image-loader：加载并且压缩图片文件</li><li>babel-loader：把 ES6 转换成 ES5</li><li>css-loader：加载 CSS，支持模块化、压缩、文件导入等特性</li><li>style-loader：把 CSS 代码注入到 JavaScript 中，通过 DOM 操作去加载 CSS。</li><li>eslint-loader：通过 ESLint 检查 JavaScript 代码</li></ul>]]></content>
-      
-      
-      <categories>
-          
-          <category> 前端工程化 </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>webpack的loader是什么？有什么作用？</title>
-      <link href="/2022/04/27/webpack%E7%9A%84loader%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E6%9C%89%E4%BB%80%E4%B9%88%E4%BD%9C%E7%94%A8%EF%BC%9F/"/>
-      <url>/2022/04/27/webpack%E7%9A%84loader%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E6%9C%89%E4%BB%80%E4%B9%88%E4%BD%9C%E7%94%A8%EF%BC%9F/</url>
-      
-        <content type="html"><![CDATA[<h3 id="Webpack-的-Loader-是什么？"><a href="#Webpack-的-Loader-是什么？" class="headerlink" title="Webpack 的 Loader 是什么？"></a>Webpack 的 Loader 是什么？</h3><p>webpack只能理解JavaScript和json文件，这是wepack开箱可用的自带能力。</p><p>loader可用让webpack能够去处理其他类型的文件，比如scss和ts，并将它们转换为有效的功能离散的chunk文件以供应用程序 使用，以及被添加到依赖图中，也可以将内联图像转换为data URL。简单来说，loader可以将一段代码转换成另一段代码，通常用来将一段特殊代码转换成一段浏览器可识别的代码。</p><p>loader从下到上地取值（evaluate）执行（execute），也就是是从后往前执行。在下面的示例中，从ts-loader开始执行，然后继续执行css-loader，最后以raw-loader为结束。loader有两个属性：test，正则表达式 ，用于识别出哪些文件会被转换，use定义在进行转换时应该使用哪个loader，可以是字符串 、数组和对象。</p><h3 id="有什么作用？"><a href="#有什么作用？" class="headerlink" title="有什么作用？"></a>有什么作用？</h3><p>webpack本身只能处理JavaScript和JSON，而loader为webpack添加了处理其他类型文件的能力。</p><p>webpack默认只能打包js文件，配置里的module.rules数组配置了一组规则，告诉webpack在遇到哪些 文件时使用哪些loader去加载和转换打包成js。</p><p>注意：use属性的值需要是一个由Loader名称组成的数组，Loader的执行顺序是由后到前的；每一个loader都可以通过url querystring的方式传入参数，例如css-loader?minmize中的minmize告诉css-loader要开启css压缩。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 前端工程化 </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>什么是bundle,chunk,module</title>
-      <link href="/2022/04/27/%E4%BB%80%E4%B9%88%E6%98%AFbundle-chunk-module/"/>
-      <url>/2022/04/27/%E4%BB%80%E4%B9%88%E6%98%AFbundle-chunk-module/</url>
+      <link href="/2019/08/27/%E4%BB%80%E4%B9%88%E6%98%AFbundle-chunk-module/"/>
+      <url>/2019/08/27/%E4%BB%80%E4%B9%88%E6%98%AFbundle-chunk-module/</url>
       
         <content type="html"><![CDATA[<p>bundle：是由webpack打包出来的文件</p><p>chunk：是指webpack在进行模块依赖分析的时候，代码分割出来的代码块</p><p>module：是开发中的单个模块</p>]]></content>
       
@@ -289,28 +61,9 @@
     
     
     <entry>
-      <title>webpack的优缺点</title>
-      <link href="/2022/04/27/webpack%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9/"/>
-      <url>/2022/04/27/webpack%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9/</url>
-      
-        <content type="html"><![CDATA[<h3 id="一、优点"><a href="#一、优点" class="headerlink" title="一、优点"></a>一、优点</h3><p>​    1、webpack是以commonJS的形式来书写脚本的，但对AMD/CMD的支持也很全面，方便旧项目进行代码迁移。</p><p>​    2、能被模块化的不仅是JS了</p><p>​    3、开发便捷，能替代部分grunt/gulp的工作，比如打包、压缩混淆、图片转base64等。</p><p>​    4、扩展性强，插件机制完善</p><h3 id="二、缺点"><a href="#二、缺点" class="headerlink" title="二、缺点"></a>二、缺点</h3><p>​    配置复杂</p><p>​    不分包bundle.js体积庞大</p><p>​    只能用于采用模块化开发的项目</p><p>​    打包慢</p><p>​    ES模块除Module外全用babel转换，但是一部分ES2015语法的firefox与chrome（谷歌）浏览器 中能直接跑的代码，无法用webpack编译</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 前端工程化 </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>前端代码为何要进行构建和打包</title>
-      <link href="/2022/04/27/%E5%89%8D%E7%AB%AF%E4%BB%A3%E7%A0%81%E4%B8%BA%E4%BD%95%E8%A6%81%E8%BF%9B%E8%A1%8C%E6%9E%84%E5%BB%BA%E5%92%8C%E6%89%93%E5%8C%85/"/>
-      <url>/2022/04/27/%E5%89%8D%E7%AB%AF%E4%BB%A3%E7%A0%81%E4%B8%BA%E4%BD%95%E8%A6%81%E8%BF%9B%E8%A1%8C%E6%9E%84%E5%BB%BA%E5%92%8C%E6%89%93%E5%8C%85/</url>
+      <link href="/2019/07/27/%E5%89%8D%E7%AB%AF%E4%BB%A3%E7%A0%81%E4%B8%BA%E4%BD%95%E8%A6%81%E8%BF%9B%E8%A1%8C%E6%9E%84%E5%BB%BA%E5%92%8C%E6%89%93%E5%8C%85/"/>
+      <url>/2019/07/27/%E5%89%8D%E7%AB%AF%E4%BB%A3%E7%A0%81%E4%B8%BA%E4%BD%95%E8%A6%81%E8%BF%9B%E8%A1%8C%E6%9E%84%E5%BB%BA%E5%92%8C%E6%89%93%E5%8C%85/</url>
       
         <content type="html"><![CDATA[<p>1、代码方面体积更小，加载更快（tree-shaking，压缩合并）</p><p>​        编译高级语言和语法（ts，es6，模块化）</p><p>​        兼容性和错误提示（polyfill，postcss，eslint）</p><p>2、研发流程统一、高效的开发环境</p><p>​        统一的构建流程和产出标准</p><p>​        集成公司构建规范（提测，上线）</p><p>打包之后许多零碎的文件打包成一个整体，页面值需请求一次，js文件中使用模块化互相引用，这样能在一定程度上提供页面渲染效率，打包的同时会进行编译，将es6，sass等高级异发进行转换编译，以兼容高版本的浏览器</p>]]></content>
       
@@ -327,9 +80,66 @@
     
     
     <entry>
+      <title>描述一下webpack中loader和plugin的思路</title>
+      <link href="/2019/06/27/%E6%8F%8F%E8%BF%B0%E4%B8%80%E4%B8%8Bwebpack%E4%B8%ADloader%E5%92%8Cplugin%E7%9A%84%E6%80%9D%E8%B7%AF/"/>
+      <url>/2019/06/27/%E6%8F%8F%E8%BF%B0%E4%B8%80%E4%B8%8Bwebpack%E4%B8%ADloader%E5%92%8Cplugin%E7%9A%84%E6%80%9D%E8%B7%AF/</url>
+      
+        <content type="html"><![CDATA[<p>loader像一个“翻译官”把读到的源文件内容转义成新的文件内容，并且每个loader通过链式 操作 ，将源文件一步步翻译成想要的样子。</p><p>编写loader时要遵循单一原则，每个loader只做一种“转义”工作。每个loader拿到的是源文件内容，可以通过返回值的方式将处理后的内容输出，也可以调用this.callback()方法 ，将内容返回给webpack。还可以通过this.async生成一个callback函数，再用这个callback将处理后的内容输出出去。此外webpack还为开发者 准备了开发loader 的工具函数 集 ——loader-utils。</p><p>相对于loader而言，plugin的编写就灵活了许多。webpack在运行的生命周期中会广播出许多事件，plugin 可以监听这些事件，在合适的时机通过webpack提供的API改变输出结果。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 前端工程化 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>loader和plugin的不同</title>
+      <link href="/2019/05/27/loader%E5%92%8Cplugin%E7%9A%84%E4%B8%8D%E5%90%8C/"/>
+      <url>/2019/05/27/loader%E5%92%8Cplugin%E7%9A%84%E4%B8%8D%E5%90%8C/</url>
+      
+        <content type="html"><![CDATA[<h3 id="不同的作用"><a href="#不同的作用" class="headerlink" title="不同的作用"></a>不同的作用</h3><p>loader直译为“加载器”。webpack将一切文件视为模块，但是webpack原生是只能解析JavaScript文件，如果想将其他文件打包的话，就会用到loader。所以loader的作用是让webpack拥有了加载和解析非JavaScript文件的能力。</p><p>plugin直译为“插件”。plugin可以扩展webpack的功能，让webpack具有更多的 灵活性。在webpack运行的生命 周期广播出许多时间，plugin可以监听这些事件，在合适的时机通过webpack提供的API改变输出结果 。</p><h3 id="不同的用法"><a href="#不同的用法" class="headerlink" title="不同的用法"></a>不同的用法</h3><p>1、loader在module rules中配置，也就是说他作为模块的解析规则而存在。类型为数组，每一项都是一个Object，里面描述了对于什么类型的文件（test），使用什么加载和使用的 参数</p><p>plugin在plugins中单独配置。类型是数组，每一项是一个plugin的实例，参数都通过构造函数传入。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 前端工程化 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>webpack的优缺点</title>
+      <link href="/2019/04/27/webpack%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9/"/>
+      <url>/2019/04/27/webpack%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9/</url>
+      
+        <content type="html"><![CDATA[<h3 id="一、优点"><a href="#一、优点" class="headerlink" title="一、优点"></a>一、优点</h3><p>​    1、webpack是以commonJS的形式来书写脚本的，但对AMD/CMD的支持也很全面，方便旧项目进行代码迁移。</p><p>​    2、能被模块化的不仅是JS了</p><p>​    3、开发便捷，能替代部分grunt/gulp的工作，比如打包、压缩混淆、图片转base64等。</p><p>​    4、扩展性强，插件机制完善</p><h3 id="二、缺点"><a href="#二、缺点" class="headerlink" title="二、缺点"></a>二、缺点</h3><p>​    配置复杂</p><p>​    不分包bundle.js体积庞大</p><p>​    只能用于采用模块化开发的项目</p><p>​    打包慢</p><p>​    ES模块除Module外全用babel转换，但是一部分ES2015语法的firefox与chrome（谷歌）浏览器 中能直接跑的代码，无法用webpack编译</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 前端工程化 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>webpack4和webpack5的区别</title>
-      <link href="/2022/04/27/webpack4%E5%92%8Cwebpack5%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
-      <url>/2022/04/27/webpack4%E5%92%8Cwebpack5%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
+      <link href="/2019/04/27/webpack4%E5%92%8Cwebpack5%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
+      <url>/2019/04/27/webpack4%E5%92%8Cwebpack5%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
       
         <content type="html"><![CDATA[<p>更快的构建速度</p><p>更高的版本要求</p><p>更灵活的模块组合</p><p>更智能的缓存优化</p><p>更小的体积</p><h3 id="代码压缩"><a href="#代码压缩" class="headerlink" title="代码压缩"></a>代码压缩</h3><p>webpack4上需要下载安装terser-webpack-plugin插件（代码压缩插件）</p><p>webpack5内部本身自带js压缩功能，它内置了该插件，我们就不用再下载安装。而且mode=“production”（生产模式）的时候会自动开启js压缩功能。</p><h3 id="缓存配置"><a href="#缓存配置" class="headerlink" title="缓存配置"></a>缓存配置</h3><p>webpack4缓存配置</p><p>npm install hard-source-webpack-plugin -D</p><p>webpack5缓存配置</p><p>webpack5内部内置了cache缓存机制，直接配置即可。</p><p>cache会在开发模式下被设置成type：memory而且会在生产模式把cache给禁用掉</p><h3 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h3><p>webpack4启动服务</p><p>通过webpack-dev-server启动服务</p><p>webpack5启动服务</p><p>内置使用webpack serve启动，但是他的日志不是很好，所以一般都加都喜欢用webpack-dev-server优化</p><h3 id="devtool区别"><a href="#devtool区别" class="headerlink" title="devtool区别"></a>devtool区别</h3><p>sourceMap需要在webpack.config.js里面直接配置devtool就可以实现了。而devtool有很多个选项值，不同的选项值，不同的选项生产的map文件不同，打包速度不同。</p><p>一般情况下，我们一般在开发环境配置用chaap-eval-module-source-map，在生产环境用‘none’。</p><p>v4.devtool：cheap-eval-module-source-map</p><p>v5.devtool：eval-cheap-module-source-map</p><h3 id="打包："><a href="#打包：" class="headerlink" title="打包："></a>打包：</h3><p>​    webpack4打包：即使后续没有使用到num1的函数，依然会将代码打包进去</p><p>​    webpack5打包：后续没有使用到num1的函数，不会将代码打包进去</p><h3 id="输出代码："><a href="#输出代码：" class="headerlink" title="输出代码："></a>输出代码：</h3><p>​    webpack4只能输出es5的代码</p><p>​    webpack5新增属性output。ecmaVersion，可以生成ES5和ES6的代码</p>]]></content>
       
@@ -347,8 +157,8 @@
     
     <entry>
       <title>什么是webpack，谈谈你对它的理解？</title>
-      <link href="/2022/04/27/webpack/"/>
-      <url>/2022/04/27/webpack/</url>
+      <link href="/2019/04/27/webpack/"/>
+      <url>/2019/04/27/webpack/</url>
       
         <content type="html"><![CDATA[<h1 id="一、概念"><a href="#一、概念" class="headerlink" title="一、概念"></a>一、概念</h1><p>webpack是前端资源加载/打包的工具，它根据模块的依赖关系进行静态分析，然后根据指定的规则生成静态资源</p><h1 id="二、作用"><a href="#二、作用" class="headerlink" title="二、作用"></a>二、作用</h1><p>webpack可以将多种静态资源js，css，html等转换成一个静态文件，减少页面请求。</p><h1 id="三、工作原理"><a href="#三、工作原理" class="headerlink" title="三、工作原理"></a>三、工作原理</h1><h2 id="（1）核心概念"><a href="#（1）核心概念" class="headerlink" title="（1）核心概念"></a>（1）核心概念</h2><p>​                entry入口指示以哪个文件为入口起点开始打包，分析构建每部依赖图</p><p>​                output出口指示打包后的资源bundles输出到哪里以及命名</p><p>​                loader让webpack能够去处理哪些非JavaScript文件</p><p>​                plugin插件可以用于执行范围更广的任务，从打包优化和压缩，一直到重新定义环境中的变量</p><p>​                mode模式指示相应模式的配置</p><h2 id="（2）流程"><a href="#（2）流程" class="headerlink" title="（2）流程"></a>（2）流程</h2><p>​                流程是一个串行的过程，从启动到结束会依次执行：</p><p>​                初始化参数：从配置文件和shell语句中读取与合并参数，得出最终参数</p><p>​                开始编译：得到最终参数初始化和初始化complier对象，加载所有配置的插件，执行对象run方法开始编译</p><p>​                确定入口：根据配置的entry找到所有入口文件</p><p>​                编译模块：从入口文件出发，调用所有配置的loader对模块进行翻译，再找出该模块依赖的模块，再递归本步骤知道所有入口依赖的文件都经过了本步骤的处理</p><p>​                完成编译：在经过第四步使用loader翻译完所有模块后，得到了每个模块翻译后的最终内容以及他们之间的依赖关系</p><p>​                输出资源：根据入口和模块之间的依赖关系，组装成一个个包含多个模块的Chunk，再把每个Chunk转换成一个单独的文件加入到输出列表，这步是可以修改输出内容的最后机会；</p><p>​                输出完成：在确定好输出内容后，根据配置确定输出的路径和文件名，把文件 内容写入到文件 系统</p><p>webpack会在特定的时间点广播出特定的时间，插件在监听到感兴趣的时间后会执行特定的逻辑，并且插件可以调用webpack提供的API改变webpack的运行结果</p><h2 id="（3）流程细节"><a href="#（3）流程细节" class="headerlink" title="（3）流程细节"></a>（3）流程细节</h2><p>​                    webpack的构建流程可以分为三个阶段：</p><p>​                        初始化：启动构建，读取与合并配置参数，加载plugin，实例化Complier对象</p><p>​                        编译：从entry出发，针对每个module串行调用对应的loder去翻译文件内容，再找到该mode依赖的mode，递归地进行编译处理。</p><p>​                         输出：对编译后的mode组合成chunk，把chunk转换成文件，输出到文件系统。</p>]]></content>
       
@@ -365,9 +175,199 @@
     
     
     <entry>
+      <title>webpack的plugin</title>
+      <link href="/2019/03/27/webpack%E7%9A%84plugin/"/>
+      <url>/2019/03/27/webpack%E7%9A%84plugin/</url>
+      
+        <content type="html"><![CDATA[<h3 id="一、Webpack-的-Plugin-是什么？"><a href="#一、Webpack-的-Plugin-是什么？" class="headerlink" title="一、Webpack 的 Plugin 是什么？"></a>一、Webpack 的 Plugin 是什么？</h3><p>plugin是插件的意思，通常是用于对某个现有的架构进行扩展。</p><p>webpack中的插件，就是对webpack现有功能的各种扩展，比如打包优化，文件压缩等等 。</p><h3 id="二、plugin的作用是什么？"><a href="#二、plugin的作用是什么？" class="headerlink" title="二、plugin的作用是什么？"></a>二、plugin的作用是什么？</h3><p>通过安装和配置第三方的插件，可以拓展webpack的能力，从而让webpack用起来更方便。最常用的webpack插件有：</p><p>1、webpack-dev-server</p><p>类似于node.js阶段用到的nodemon工具</p><p>每当修改了源代码，webpack会自动进行项目的打包和构建</p><p>2、html-webpack-plugin</p><p>webpack中的HTML插件（类似于一个模板引擎插件）</p><p>可以通过此 插件自定制index.html页面的内容</p><h3 id="三、有哪些常见的plugin？他们解决了什么问题？"><a href="#三、有哪些常见的plugin？他们解决了什么问题？" class="headerlink" title="三、有哪些常见的plugin？他们解决了什么问题？"></a>三、有哪些常见的plugin？他们解决了什么问题？</h3><ul><li>define-plugin：定义环境变量</li><li>commons-chunk-plugin：提取公共代码</li><li>uglifyjs-webpack-plugin：通过UglifyES压缩ES6代码</li><li>purgecss-webpack-plugin：擦除无用css</li><li>happypack：多线程处理打包</li><li>webpack-bundle-analyzer：打包分析</li><li>speed-measure-webpack-plugin：构建速度分析</li><li>html-webpack-plugin：</li><li>为html文件中引入的外部资源如script、link动态添加每次compile后的hash，防止引用缓存的外部文件问题</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 前端工程化 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>webpack的loader是什么？有什么作用？</title>
+      <link href="/2019/03/27/webpack%E7%9A%84loader%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E6%9C%89%E4%BB%80%E4%B9%88%E4%BD%9C%E7%94%A8%EF%BC%9F/"/>
+      <url>/2019/03/27/webpack%E7%9A%84loader%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E6%9C%89%E4%BB%80%E4%B9%88%E4%BD%9C%E7%94%A8%EF%BC%9F/</url>
+      
+        <content type="html"><![CDATA[<h3 id="Webpack-的-Loader-是什么？"><a href="#Webpack-的-Loader-是什么？" class="headerlink" title="Webpack 的 Loader 是什么？"></a>Webpack 的 Loader 是什么？</h3><p>webpack只能理解JavaScript和json文件，这是wepack开箱可用的自带能力。</p><p>loader可用让webpack能够去处理其他类型的文件，比如scss和ts，并将它们转换为有效的功能离散的chunk文件以供应用程序 使用，以及被添加到依赖图中，也可以将内联图像转换为data URL。简单来说，loader可以将一段代码转换成另一段代码，通常用来将一段特殊代码转换成一段浏览器可识别的代码。</p><p>loader从下到上地取值（evaluate）执行（execute），也就是是从后往前执行。在下面的示例中，从ts-loader开始执行，然后继续执行css-loader，最后以raw-loader为结束。loader有两个属性：test，正则表达式 ，用于识别出哪些文件会被转换，use定义在进行转换时应该使用哪个loader，可以是字符串 、数组和对象。</p><h3 id="有什么作用？"><a href="#有什么作用？" class="headerlink" title="有什么作用？"></a>有什么作用？</h3><p>webpack本身只能处理JavaScript和JSON，而loader为webpack添加了处理其他类型文件的能力。</p><p>webpack默认只能打包js文件，配置里的module.rules数组配置了一组规则，告诉webpack在遇到哪些 文件时使用哪些loader去加载和转换打包成js。</p><p>注意：use属性的值需要是一个由Loader名称组成的数组，Loader的执行顺序是由后到前的；每一个loader都可以通过url querystring的方式传入参数，例如css-loader?minmize中的minmize告诉css-loader要开启css压缩。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 前端工程化 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>webpack中有哪些常用的Loader？它们解决了什么问题？</title>
+      <link href="/2019/03/25/webpack%E4%B8%AD%E6%9C%89%E5%93%AA%E4%BA%9B%E5%B8%B8%E7%94%A8%E7%9A%84Loader%EF%BC%9F%E5%AE%83%E4%BB%AC%E8%A7%A3%E5%86%B3%E4%BA%86%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98%EF%BC%9F/"/>
+      <url>/2019/03/25/webpack%E4%B8%AD%E6%9C%89%E5%93%AA%E4%BA%9B%E5%B8%B8%E7%94%A8%E7%9A%84Loader%EF%BC%9F%E5%AE%83%E4%BB%AC%E8%A7%A3%E5%86%B3%E4%BA%86%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98%EF%BC%9F/</url>
+      
+        <content type="html"><![CDATA[<ul><li>file-loader：把文件输出到一个文件夹中，在代码中通过相对 URL 去引用输出的文件</li><li>url-loader：和 file-loader 类似，但是能在文件很小的情况下以 base64 的方式把文件内容注入到代码中去</li><li>source-map-loader：加载额外的 Source Map 文件，以方便断点调试</li><li>image-loader：加载并且压缩图片文件</li><li>babel-loader：把 ES6 转换成 ES5</li><li>css-loader：加载 CSS，支持模块化、压缩、文件导入等特性</li><li>style-loader：把 CSS 代码注入到 JavaScript 中，通过 DOM 操作去加载 CSS。</li><li>eslint-loader：通过 ESLint 检查 JavaScript 代码</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 前端工程化 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>vue生命周期</title>
+      <link href="/2018/07/02/vue%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"/>
+      <url>/2018/07/02/vue%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</url>
+      
+        <content type="html"><![CDATA[<h2 id="一、生命周期是什么"><a href="#一、生命周期是什么" class="headerlink" title="一、生命周期是什么"></a>一、生命周期是什么</h2><p>生命周期<code>（Life Cycle）</code>的概念应用很广泛，特别是在政治、经济、环境、技术、社会等诸多领域经常出现，其基本涵义可以通俗地理解为“从摇篮到坟墓”<code>（Cradle-to-Grave）</code>的整个过程在<code>Vue</code>中实例从创建到销毁的过程就是生命周期，即指从创建、初始化数据、编译模板、挂载Dom→渲染、更新→渲染、卸载等一系列过程我们可以把组件比喻成工厂里面的一条流水线，每个工人（生命周期）站在各自的岗位，当任务流转到工人身边的时候，工人就开始工作PS：在<code>Vue</code>生命周期钩子会自动绑定 <code>this</code> 上下文到实例中，因此你可以访问数据，对 <code>property</code> 和方法进行运算这意味着<strong>你不能使用箭头函数来定义一个生命周期方法</strong> (例如 <code>created: () =&gt; this.fetchTodos()</code>)</p><h2 id="二、生命周期有哪些"><a href="#二、生命周期有哪些" class="headerlink" title="二、生命周期有哪些"></a>二、生命周期有哪些</h2><p>Vue生命周期总共可以分为8个阶段：创建前后, 载入前后,更新前后,销毁前销毁后，以及一些特殊场景的生命周期</p><table><thead><tr><th align="left">生命周期</th><th align="left">描述</th></tr></thead><tbody><tr><td align="left">beforeCreate</td><td align="left">组件实例被创建之初</td></tr><tr><td align="left">created</td><td align="left">组件实例已经完全创建</td></tr><tr><td align="left">beforeMount</td><td align="left">组件挂载之前</td></tr><tr><td align="left">mounted</td><td align="left">组件挂载到实例上去之后</td></tr><tr><td align="left">beforeUpdate</td><td align="left">组件数据发生变化，更新之前</td></tr><tr><td align="left">updated</td><td align="left">组件数据更新之后</td></tr><tr><td align="left">beforeDestroy</td><td align="left">组件实例销毁之前</td></tr><tr><td align="left">destroyed</td><td align="left">组件实例销毁之后</td></tr><tr><td align="left">activated</td><td align="left">keep-alive 缓存的组件激活时</td></tr><tr><td align="left">deactivated</td><td align="left">keep-alive 缓存的组件停用时调用</td></tr><tr><td align="left">errorCaptured</td><td align="left">捕获一个来自子孙组件的错误时被调用</td></tr></tbody></table><h2 id="三、生命周期整体流程"><a href="#三、生命周期整体流程" class="headerlink" title="三、生命周期整体流程"></a>三、生命周期整体流程</h2><p><code>Vue</code>生命周期流程图</p><p><img src="/2018/07/02/vue%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/20210408093135.png"></p><h4 id="具体分析"><a href="#具体分析" class="headerlink" title="#具体分析"></a><a href="https://vue3js.cn/interview/vue/lifecycle.html#%E5%85%B7%E4%BD%93%E5%88%86%E6%9E%90">#</a>具体分析</h4><p><strong>beforeCreate -&gt; created</strong></p><ul><li>初始化<code>vue</code>实例，进行数据观测</li></ul><p><strong>created</strong></p><ul><li>完成数据观测，属性与方法的运算，<code>watch</code>、<code>event</code>事件回调的配置</li><li>可调用<code>methods</code>中的方法，访问和修改data数据触发响应式渲染<code>dom</code>，可通过<code>computed</code>和<code>watch</code>完成数据计算</li><li>此时<code>vm.$el</code> 并没有被创建</li></ul><p><strong>created -&gt; beforeMount</strong></p><ul><li>判断是否存在<code>el</code>选项，若不存在则停止编译，直到调用<code>vm.$mount(el)</code>才会继续编译</li><li>优先级：<code>render</code> &gt; <code>template</code> &gt; <code>outerHTML</code></li><li><code>vm.el</code>获取到的是挂载<code>DOM</code>的</li></ul><p><strong>beforeMount</strong></p><ul><li>在此阶段可获取到<code>vm.el</code></li><li>此阶段<code>vm.el</code>虽已完成DOM初始化，但并未挂载在<code>el</code>选项上</li></ul><p><strong>beforeMount -&gt; mounted</strong></p><ul><li>此阶段<code>vm.el</code>完成挂载，<code>vm.$el</code>生成的<code>DOM</code>替换了<code>el</code>选项所对应的<code>DOM</code></li></ul><p><strong>mounted</strong></p><ul><li><code>vm.el</code>已完成<code>DOM</code>的挂载与渲染，此刻打印<code>vm.$el</code>，发现之前的挂载点及内容已被替换成新的DOM</li></ul><p><strong>beforeUpdate</strong></p><ul><li>更新的数据必须是被渲染在模板上的（<code>el</code>、<code>template</code>、<code>rende</code>r之一）</li><li>此时<code>view</code>层还未更新</li><li>若在<code>beforeUpdate</code>中再次修改数据，不会再次触发更新方法</li></ul><p><strong>updated</strong></p><ul><li>完成<code>view</code>层的更新</li><li>若在<code>updated</code>中再次修改数据，会再次触发更新方法（<code>beforeUpdate</code>、<code>updated</code>）</li></ul><p><strong>beforeDestroy</strong></p><ul><li>实例被销毁前调用，此时实例属性与方法仍可访问</li></ul><p><strong>destroyed</strong></p><ul><li>完全销毁一个实例。可清理它与其它实例的连接，解绑它的全部指令及事件监听器</li><li>并不能清除DOM，仅仅销毁实例</li></ul><p><strong>使用场景分析</strong></p><table><thead><tr><th align="left">生命周期</th><th align="left">描述</th></tr></thead><tbody><tr><td align="left">beforeCreate</td><td align="left">执行时组件实例还未创建，通常用于插件开发中执行一些初始化任务</td></tr><tr><td align="left">created</td><td align="left">组件初始化完毕，各种数据可以使用，常用于异步数据获取</td></tr><tr><td align="left">beforeMount</td><td align="left">未执行渲染、更新，dom未创建</td></tr><tr><td align="left">mounted</td><td align="left">初始化结束，dom已创建，可用于获取访问数据和dom元素</td></tr><tr><td align="left">beforeUpdate</td><td align="left">更新前，可用于获取更新前各种状态</td></tr><tr><td align="left">updated</td><td align="left">更新后，所有状态已是最新</td></tr><tr><td align="left">beforeDestroy</td><td align="left">销毁前，可用于一些定时器或订阅的取消</td></tr><tr><td align="left">destroyed</td><td align="left">组件已销毁，作用同上</td></tr></tbody></table>]]></content>
+      
+      
+      <categories>
+          
+          <category> vue </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>nextTick作用与原理</title>
+      <link href="/2018/07/02/nextTick/"/>
+      <url>/2018/07/02/nextTick/</url>
+      
+        <content type="html"><![CDATA[<h3 id="作用：是为了可以获取更新后的DOM。"><a href="#作用：是为了可以获取更新后的DOM。" class="headerlink" title="作用：是为了可以获取更新后的DOM。"></a>作用：是为了可以获取更新后的DOM。</h3><p>由于vue DOM更新时异步执行的，即修改数据时，视图不会立即更新，而是会监听数据变化，并缓存在同一事件循环中，等同一数据循环中的所有数据变化完成之后，再统一进行视图更新。为了确保得到更新后的DOM，所以设置了Vue.nextTick(),就是在下次DOM更新循环结束之后执行延迟回调。在修改数据之后立即使用这个方法，获取 更新后的DOM。</p><h3 id="原理："><a href="#原理：" class="headerlink" title="原理："></a>原理：</h3><p>nextTick可以让我们在下次DOM更新循环结束之后执行延迟回调，用于获取更新后的DOM</p><p>主要使用了宏任务和微任务。根据执行环境分别尝试采用</p><p>promise</p><p>MutationObserver</p><p>setimmediate</p><p>如果以上不都不行则采用setTimeout</p><p>定义了一个异步方法，多次调用nextTick会将方法存入队列中，通过这个异步方法清空当前队列。</p><p>在写项目的时候，当时点击按钮要获取一个元素的内容，但是发现了第二次点击的时候才能获取到，后来在网上查了一下，发现是vue异步更新队列的问题，后来是通过$nextTick解决的。</p><p>应用场景：需要在视图更新之后，基于新的视图进行操作。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> vue </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>vue2响应式原理</title>
+      <link href="/2018/07/01/vue%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/"/>
+      <url>/2018/07/01/vue%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/</url>
+      
+        <content type="html"><![CDATA[<p>vue的响应式原理是核心通过ES5的保护对象object.defindeProperty中的访问器属性中的get和set方法，data中声明的属性都被添加了访问器属性，当读取data中的数据时自动调用get方法，当修改data中的数据时，自动调用set方法，检测到数据的变化，会通知观察者wacher，观察者wacher自动触发render当前 组件（子组件不会重新渲染），生成新的虚拟DOM数，vue框架会遍历并对比新虚拟DOM树和旧虚拟DOM树中每一个节点的差别，并 记录下来 ，最后，加载操作，将所有记录的不同点 ，局部修改到真实DOM树上。</p><p><img src="/2018/07/01/vue%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/15.png"></p><p>虚拟DOM（Virtauil DOM）；用js对象模拟的，保存当前视图内所有DOM节点对象基本描述属性和节点间关系的数结构。用js对象，描述每个节点，及其父子关系，形成虚拟DOM对象结构。</p><p>因为只要在data中声明的基本数据类型的数据，基本不存在数据不响应问题，所以重点介绍数组和对象在vue中的数据响应问题，vue可以检测对象属性的修改，但无法监听数组的所有变动及对象的新增和删除，只能使用数组变异方法及$set方法。</p><p><img src="/2018/07/01/vue%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/16.png"></p><p>可以看到，arrayMethods首先继承了Array，然后 对数组中所有能改变 数组自身的方法，如push，pop等这些方法进行重写。重写后的方法会执行它们本身原有的逻辑并对能增加数组长度的3个方法push、unshift、splice方法做了判断，获取到插入的值，然后把新添加的值变成一个响应式对象，并且在调用ob.dep.notify（）手动触发依赖通知 ，这就很好地解释了用vm.items.splice（newLength）方法可以检测到变化</p><p>总结：vue采用数据劫持结合发布—订阅模式的方法，通过object.defindeProperty（）来劫持各个属性setter，getter，在数据变动时发布消息给订阅者，触发相应的监听回调。</p><p><img src="/2018/07/01/vue%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/vue.jpeg"></p><ul><li><code>Observer</code> 遍历数据对象，给所有属性加上 <code>setter</code> 和 <code>getter</code>，监听数据的变化</li><li><code>compile</code> 解析模板指令，将模板中的变量替换成数据，然后初始化渲染页面视图，并将每个指令对应的节点绑定更新函数，添加监听数据的订阅者，一旦数据有变动，收到通知，更新视图</li></ul><blockquote><p><code>Watcher</code> 订阅者是 <code>Observer</code> 和 <code>Compile</code> 之间通信的桥梁，主要做的事情</p></blockquote><ul><li>在自身实例化时往属性订阅器 (<code>dep</code>) 里面添加自己</li><li>待属性变动 <code>dep.notice()</code> 通知时，调用自身的 <code>update()</code> 方法，并触发 <code>Compile</code> 中绑定的回调</li></ul><p>**Object.defineProperty()**，那么它的用法是什么，以及优缺点是什么呢？</p><ul><li>可以检测对象中数据发生的修改</li><li>对于复杂的对象，层级很深的话，是不友好的，需要经行深度监听，这样子就需要递归到底，这也是它的缺点。</li><li>对于一个对象中，如果你新增加属性，删除属性，**Object.defineProperty()**是不能观测到的，那么应该如何解决呢？可以通过<code>Vue.set()</code>和<code>Vue.delete()</code>来实现。</li></ul><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 模拟 Vue 中的 data 选项 </span></span><br><span class="line"><span class="keyword">let</span> data = &#123;</span><br><span class="line">    <span class="attr">msg</span>: <span class="string">&#x27;hello&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 模拟 Vue 的实例 </span></span><br><span class="line"><span class="keyword">let</span> vm = &#123;&#125;</span><br><span class="line"><span class="comment">// 数据劫持:当访问或者设置 vm 中的成员的时候，做一些干预操作</span></span><br><span class="line"><span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(vm, <span class="string">&#x27;msg&#x27;</span>, &#123;</span><br><span class="line">  <span class="comment">// 可枚举(可遍历)</span></span><br><span class="line">  <span class="attr">enumerable</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="comment">// 可配置(可以使用 delete 删除，可以通过 defineProperty 重新定义) </span></span><br><span class="line">  <span class="attr">configurable</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="comment">// 当获取值的时候执行 </span></span><br><span class="line">  get () &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;get: &#x27;</span>, data.<span class="property">msg</span>)</span><br><span class="line">    <span class="keyword">return</span> data.<span class="property">msg</span> </span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// 当设置值的时候执行 </span></span><br><span class="line">  set (newValue) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;set: &#x27;</span>, newValue) </span><br><span class="line">    <span class="keyword">if</span> (newValue === data.<span class="property">msg</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    data.<span class="property">msg</span> = newValue</span><br><span class="line">    <span class="comment">// 数据更改，更新 DOM 的值 </span></span><br><span class="line">    <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;#app&#x27;</span>).<span class="property">textContent</span> = data.<span class="property">msg</span></span><br><span class="line">  &#125; </span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试</span></span><br><span class="line">vm.<span class="property">msg</span> = <span class="string">&#x27;Hello World&#x27;</span> </span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(vm.<span class="property">msg</span>)</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> vue </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>vue-router原理</title>
+      <link href="/2018/06/02/vue-router/"/>
+      <url>/2018/06/02/vue-router/</url>
+      
+        <content type="html"><![CDATA[<p><strong>vue-router</strong>是vue官方的路由管理器。它和vue.js的核心深度集成，让构建单页面应用变得易如反掌。vue-router默认是hash模式，还有一种是history模式。</p><p><strong>mode</strong></p><ul><li><code>hash</code></li><li><code>history</code></li></ul><p><strong>原理：</strong></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> vue </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>js原型和原型链</title>
+      <link href="/2018/05/03/js%E5%8E%9F%E5%9E%8B%E5%92%8C%E5%8E%9F%E5%9E%8B%E9%93%BE/"/>
+      <url>/2018/05/03/js%E5%8E%9F%E5%9E%8B%E5%92%8C%E5%8E%9F%E5%9E%8B%E9%93%BE/</url>
+      
+        <content type="html"><![CDATA[<p>1、构造函数<br>（1）<strong>构造函数是一种特殊的函数，主要用来初始化对象，即为对象成员变量赋初始值，它总与 new 一起使用。</strong><br>我们可以把对象中一些公共的属性和方法抽取出来，然后封装到这个函数里面。<br>（2）new 在执行时会做四件事情：<br>① 在内存中创建一个新的空对象。<br>② 让 this 指向这个新的对象。<br>③ 执行构造函数里面的代码，给这个新对象添加属性和方法。<br>④ 返回这个新对象（所以构造函数里面不需要 return ）。<br>2、静态成员和实例成员<br>（1）实例成员<br>实例成员就是构造函数内部通过this添加的成员，<strong>实例成员只能通过实例化的对象来访</strong><br>（2）静态成员<br>静态成员 在构造函数本身上添加的成员，<strong>静态成员只能通过构造函数来访问</strong><br>3、<strong>构造函数原型对象prototype</strong><br>（1）构造函数方法很好用，但是存在浪费内存的问题– 实例化构造函数调用里面函数，会为函数开辟单独的内存空间<br>（2）原型对象实现共享：公共属性定义到构造函数里面, 公共的方法我们放到原型对象身上。<br>（3）<strong>JavaScript 规定，每一个构造函数都有一个 prototype 属性，指向另一个对象。</strong><br>注意这个 prototype 就是一个对象，这个对象的所有属性和方法，都会被构造函数所拥有。<br>我们可以把那些不变的方法，直接定义在 prototype 对象上，这样所有对象的实例就可以共享这些方法。<br>4、<strong>对象原型__proto__</strong><br>（1）<strong>对象都会有一个属性 proto 指向构造函数的 prototype 原型对象，</strong> 之所以我们对象可以使用构造函数 prototype 原型对象的属性和方法，就是因为对象有 <strong>proto</strong> 原型的存在。<br>（2）**__proto__对象原型和原型对象 prototype 是等价的**<br>（3）__proto__对象原型的意义就在于为对象的查找机制提供一个方向，或者说一条路线，但是它是一个非标准属性，因此实际开发中，不可以使用这个属性，它只是内部指向原型对象 prototype<br>5、<strong>原型constructor构造函数</strong><br>（1）<em>*对象原型（ proto）和构造函数（prototype）原型对象里面都有一个属性 constructor 属性,我们称为构造函数，它指回构造函数本身。 **（2）**constructor 作用 – 记录该对象引用于哪个构造函数，它可以让原型对象重新指向原来的构造函数。</em>*<br>（3）一般情况下，对象的方法都在构造函数的原型对象中设置。如果有多个对象的方法，我们可以给原型对象采取对象形式赋值，但是这样就会覆盖构造函数原型对象原来的内容，这样修改后的原型对象 constructor 就不再指向当前构造函数了。此时，我们可以在修改后的原型对象中，添加一个 constructor 指向原来的构造函数。<br>注：<strong>如果我们修改了原来的原型对象,给原型对象赋值的是一个对象,则必须手动的利用constructor指回原来的构造函数</strong><br>（4）__proto__对象原型的意义就在于为对象的查找机制提供一个方向，或者说一条路线，但是它是一个非标准属性，因此实际开发中，不可以使用这个属性，它只是内部指向原型对象 prototype</p><p>6、利用原型 – 扩展数组类（Array）的功能：<br>（1）为每一个数组对象添加一个方法，可以查找某个元素的所在位置<br>（2）调用find方法返回参数在数组中出现的位置<br>7、原型链<br>每一个实例对象又有一个proto属性，指向的构造函数的原型对象，构造函数的原型对象也是一个对象，也有proto属性，这样一层一层往上找就形成了原型链。<br><img src="/2018/05/03/js%E5%8E%9F%E5%9E%8B%E5%92%8C%E5%8E%9F%E5%9E%8B%E9%93%BE/2196136-20210101140952621-845639098.png" alt="img"><br>8、构造函数实例和原型对象三角关系<br>（1）构造函数的prototype属性指向了构造函数原型对象<br>（2）实例对象是由构造函数创建的,实例对象的__proto__属性指向了构造函数的原型对象<br>（3）构造函数的原型对象的constructor属性指向了构造函数,实例对象的原型的constructor属性也指向了构造函数<br>9、原型链和成员的查找机制<br>（1）当访问一个对象的属性（包括方法）时，首先查找这个对象自身有没有该属性。<br>（2）如果没有就查找它的原型（也就是 __proto__指向的 prototype 原型对象）。<br>（3）如果还没有就查找原型对象的原型（Object的原型对象）。<br>（4）<strong>依此类推一直找到 Object 为止（null）</strong><br>（5）__proto__对象原型的意义就在于为对象成员查找机制提供一个方向，或者说一条路线。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> JavaScript </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>js实现继承的几种方法</title>
+      <link href="/2018/05/02/js%E5%AE%9E%E7%8E%B0%E7%BB%A7%E6%89%BF%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/"/>
+      <url>/2018/05/02/js%E5%AE%9E%E7%8E%B0%E7%BB%A7%E6%89%BF%E7%9A%84%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95/</url>
+      
+        <content type="html"><![CDATA[<h3 id="JavaScript实现继承的几种方法"><a href="#JavaScript实现继承的几种方法" class="headerlink" title="JavaScript实现继承的几种方法"></a>JavaScript实现继承的几种方法</h3><p>JS作为面向对象的弱类型语言，继承也是其非常强大的特性之一。那么如何在JS中实现继承呢？让我们拭目以待。</p><p><strong>在ES5中：</strong></p><p>既然要实现继承，那么首先我们得有一个父类</p><h4 id="1、原型链继承"><a href="#1、原型链继承" class="headerlink" title="1、原型链继承"></a>1、原型链继承</h4><p><strong>核心：</strong> 将父类的实例作为子类的原型</p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/** es5 1.原型链继承 */</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">a</span> () &#123;<span class="comment">//父类</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">name</span> = <span class="string">&#x27;张三&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">b</span> () &#123;<span class="comment">//子类</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">age</span> = <span class="number">20</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">b.<span class="property"><span class="keyword">prototype</span></span> = <span class="keyword">new</span> <span class="title function_">a</span>()<span class="comment">//将子类原型对象等于实例化父类</span></span><br><span class="line"><span class="keyword">let</span> cha = <span class="keyword">new</span> <span class="title function_">b</span>()</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(cha.<span class="property">age</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(cha.<span class="property">name</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure><p><strong>核心原理：</strong></p><p>将子类所共享的方法提取出来，让子类的prototype原型对象=new 父类()</p><p>本质：子类原型对象等于是实例化父类，因为父类实例化之后另外开辟空间，就不会影响原来父类原型对象</p><p><strong>优点：</strong>子类的实例可继承的属性—子类的实例的构造函数的属性、父类构造函数属性、父类原型的属性，但不会继承父类实例的属性</p><p><strong>缺点：</strong></p><p>​    1、在创建子类的实例时，不能向父类的构造函数中传递参数。严格来说，是没有办法在不影响所有对象实例的情况下，给父类的构造函数传递参数</p><p>​    2、所有子类的实例都会共享父类实例的属性：包含引用类型值的原型属性会被所有实例共享。</p><p>​    3、继承方式单一。</p><h4 id="2、构造函数继承"><a href="#2、构造函数继承" class="headerlink" title="2、构造函数继承"></a>2、构造函数继承</h4><p><strong>基本思想：</strong>通过call()或apply()方法在子类构造函数的内部调用父类构造函数</p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/** es5 2.构造函数继承 */</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">a</span> () &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">name</span> = <span class="string">&#x27;张三&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">b</span> () &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">age</span> = <span class="number">20</span></span><br><span class="line">    a.<span class="title function_">call</span>(<span class="variable language_">this</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> chb = <span class="keyword">new</span> <span class="title function_">b</span>()</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(chb.<span class="property">age</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(chb.<span class="property">name</span>);</span><br></pre></td></tr></table></figure><p><strong>实现的本质：</strong>在子类构造函数的内部调用超类型构造函数，使用aapply()和call() 方法</p><p><strong>优点：</strong></p><p>​    1、子类实例可以向父类构造函数传递参数</p><p>​    2、解决了包含引用类型值的原型属性会被所有实例共享的问题</p><p>​    3、使用call()或者apply可以同时继承多个构造函数的属性，解决了继承方式单一的问题</p><p><strong>缺点：</strong></p><p>​    1、只能继承父类构造函数的属性</p><p>​    2、每次使用都要重新调用，无法实现构造函数的复用。</p><p>​    3、每个子类实例都有父类构造函数的副本</p><h4 id="3、组合继承"><a href="#3、组合继承" class="headerlink" title="3、组合继承"></a>3、组合继承</h4><p><strong>基本思想：</strong>使用原型链实现对原型属性和方法的继承，通过借用构造函数来实现对实例属性的继承</p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/** es5 3.组合式继承 */</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">a</span> () &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">name</span> = <span class="string">&#x27;张三&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">b</span> () &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">age</span> = <span class="number">20</span></span><br><span class="line">    a.<span class="title function_">call</span>(<span class="variable language_">this</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">b.<span class="property"><span class="keyword">prototype</span></span> = <span class="keyword">new</span> <span class="title function_">a</span>()</span><br><span class="line"><span class="keyword">let</span> chb = <span class="keyword">new</span> <span class="title function_">b</span>()</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(chb.<span class="property">age</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(chb.<span class="property">name</span>);</span><br></pre></td></tr></table></figure><p><strong>优点：</strong></p><p>​    1、可以复用、也可以传参、还可以继承父类原型上的属性。</p><p>​    2、每个子类的实例引入的构造函数属性都是私有的。</p><p><strong>缺点：</strong>调用了两次父类构造函数，而且子类的构造函数会代替原型上的父类构造函数。</p><p><strong>在ES6中：</strong></p><p>​    class继承 通过extents关键字</p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/** es6 extents */</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Par</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span> () &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">name</span> = <span class="string">&#x27;张三&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Child</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Par</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span> () &#123;</span><br><span class="line">        <span class="variable language_">super</span>()</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">age</span> = <span class="number">20</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> c  = <span class="keyword">new</span> <span class="title class_">Child</span>()</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(c.<span class="property">age</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(c.<span class="property">name</span>);</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> JavaScript </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>vuex的原理</title>
+      <link href="/2018/05/02/vuex/"/>
+      <url>/2018/05/02/vuex/</url>
+      
+        <content type="html"><![CDATA[<p>vuex集中式存储管理应用的所有组件的状态，并以相应的规则保证状态以可预测的方式发生变化。</p><h3 id="核心概念"><a href="#核心概念" class="headerlink" title="核心概念"></a>核心概念</h3><p>state：状态中心</p><p>mutations：更改状态</p><p>actions：异步更改状态</p><p>getters：获取状态</p><p>modules：将state分成多个modules，便于管理</p><h4 id="一-、状态-state"><a href="#一-、状态-state" class="headerlink" title="一 、状态-state"></a>一 、状态-state</h4><p>state保存应用状态</p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> <span class="title class_">Vuex</span>.<span class="title class_">Store</span>(&#123; <span class="attr">state</span>: &#123; <span class="attr">counter</span>:<span class="number">0</span> &#125;,&#125;)</span><br></pre></td></tr></table></figure><ol><li>状态变更 <strong>- mutations</strong></li></ol><blockquote><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mutations`用于修改状态，`store.js</span><br></pre></td></tr></table></figure></blockquote><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> <span class="title class_">Vuex</span>.<span class="title class_">Store</span>(&#123;</span><br><span class="line">    <span class="attr">mutations</span>:</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="title function_">add</span>(<span class="params">state</span>) &#123;</span><br><span class="line">        state.<span class="property">counter</span>++</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br></pre></td></tr></table></figure><ol><li>派生状态 <strong>- getters</strong></li></ol><blockquote><p>从state派生出新状态，类似计算属性</p></blockquote><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> <span class="title class_">Vuex</span>.<span class="title class_">Store</span>(&#123;</span><br><span class="line">    <span class="attr">getters</span>:</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="title function_">doubleCounter</span>(<span class="params">state</span>) &#123; <span class="comment">// 计算剩余数量 return state.counter * 2;</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br></pre></td></tr></table></figure><ol><li>动作 <strong>- actions</strong></li></ol><p>加业务逻辑，类似于<code>controller</code></p><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> <span class="title class_">Vuex</span>.<span class="title class_">Store</span>(&#123;</span><br><span class="line">    <span class="attr">actions</span>:</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="title function_">add</span>(<span class="params">&#123;</span></span><br><span class="line"><span class="params">        commit</span></span><br><span class="line"><span class="params">      &#125;</span>) &#123;</span><br><span class="line">        <span class="built_in">setTimeout</span>(() = &gt;&#123;&#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br></pre></td></tr></table></figure><p>测试代码:</p><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> @<span class="attr">click</span>=<span class="string">&quot;$store.commit(&#x27;add&#x27;)&quot;</span>&gt;</span>counter: &#123;&#123;$store.state.counter&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> @<span class="attr">click</span>=<span class="string">&quot;$store.dispatch(&#x27;add&#x27;)&quot;</span>&gt;</span>async counter: &#123;&#123;$store.state.counter&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>double:&#123;&#123;$store.getters.doubleCounter&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure><p><strong>vuex原理解析</strong></p><ul><li><p>实现一个插件:声明<code>Store</code>类，挂载<code>$store</code></p></li><li><p>```<br>Store</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">  具体实现:</span><br><span class="line"></span><br><span class="line">  - 创建响应式的`state`，保存`mutations`、`actions`和`getters`</span><br><span class="line">  - 实现`commit`根据用户传入`type`执行对应`mutation`</span><br><span class="line">  - 实现`dispatch`根据用户传入`type`执行对应`action`，同时传递上下文</span><br><span class="line">  - 实现`getters`，按照`getters`定义对`state`做派生</span><br><span class="line"></span><br><span class="line">```js</span><br><span class="line">// 目标1：实现Store类，管理state（响应式的），commit方法和dispatch方法</span><br><span class="line">// 目标2：封装一个插件，使用更容易使用</span><br><span class="line">let Vue;</span><br><span class="line"></span><br><span class="line">class Store &#123;</span><br><span class="line">  constructor(options) &#123;</span><br><span class="line">    // 定义响应式的state</span><br><span class="line">    // this.$store.state.xx</span><br><span class="line">    // 借鸡生蛋</span><br><span class="line">    this._vm = new Vue(&#123;</span><br><span class="line">      data: &#123;</span><br><span class="line">        $$state: options.state</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    </span><br><span class="line">    this._mutations = options.mutations</span><br><span class="line">    this._actions = options.actions</span><br><span class="line"></span><br><span class="line">    // 绑定this指向</span><br><span class="line">    this.commit = this.commit.bind(this)</span><br><span class="line">    this.dispatch = this.dispatch.bind(this)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  // 只读</span><br><span class="line">  get state() &#123;</span><br><span class="line">    return this._vm._data.$$state</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  set state(val) &#123;</span><br><span class="line">    console.error(&#x27;不能直接赋值呀，请换别的方式！！天王盖地虎！！&#x27;);</span><br><span class="line">    </span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  // 实现commit方法，可以修改state</span><br><span class="line">  commit(type, payload) &#123;</span><br><span class="line">    // 拿出mutations中的处理函数执行它</span><br><span class="line">    const entry = this._mutations[type]</span><br><span class="line">    if (!entry) &#123;</span><br><span class="line">      console.error(&#x27;未知mutaion类型&#x27;);</span><br><span class="line">      return</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    entry(this.state, payload)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  dispatch(type, payload) &#123;</span><br><span class="line">    const entry = this._actions[type]</span><br><span class="line"></span><br><span class="line">    if (!entry) &#123;</span><br><span class="line">      console.error(&#x27;未知action类型&#x27;);</span><br><span class="line">      return</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 上下文可以传递当前store实例进去即可</span><br><span class="line">    entry(this, payload)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function install(_Vue)&#123;</span><br><span class="line">  Vue = _Vue</span><br><span class="line"></span><br><span class="line">  // 混入store实例</span><br><span class="line">  Vue.mixin(&#123;</span><br><span class="line">    beforeCreate() &#123;</span><br><span class="line">      if (this.$options.store) &#123;</span><br><span class="line">        Vue.prototype.$store = this.$options.store</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// &#123; Store, install &#125;相当于Vuex</span><br><span class="line">// 它必须实现install方法</span><br><span class="line">export default &#123; Store, install &#125;</span><br></pre></td></tr></table></figure></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> vue </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>JavaScript This指向</title>
-      <link href="/2022/04/26/This%E6%8C%87%E5%90%91/"/>
-      <url>/2022/04/26/This%E6%8C%87%E5%90%91/</url>
+      <link href="/2017/04/26/This%E6%8C%87%E5%90%91/"/>
+      <url>/2017/04/26/This%E6%8C%87%E5%90%91/</url>
       
         <content type="html"><![CDATA[<blockquote><p>不同情况的调用，<code>this</code>指向分别如何。顺带可以提一下 <code>es6</code> 中箭头函数没有 <code>this</code>, <code>arguments</code>, <code>super</code> 等，这些只依赖包含箭头函数最接近的函数</p></blockquote><blockquote><p>我们先来看几个函数调用的场景</p></blockquote><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">foo</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">a</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> a = <span class="number">1</span></span><br><span class="line"><span class="title function_">foo</span>()</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">  <span class="attr">a</span>: <span class="number">2</span>,</span><br><span class="line">  <span class="attr">foo</span>: foo</span><br><span class="line">&#125;</span><br><span class="line">obj.<span class="title function_">foo</span>()</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> c = <span class="keyword">new</span> <span class="title function_">foo</span>()</span><br></pre></td></tr></table></figure><ul><li>对于直接调用 <code>foo</code> 来说，不管 <code>foo</code> 函数被放在了什么地方，<code>this</code> 一定是<code>window</code></li><li>对于 <code>obj.foo()</code> 来说，我们只需要记住，谁调用了函数，谁就是 <code>this</code>，所以在这个场景下 <code>foo</code> 函数中的 <code>this</code> 就是 <code>obj</code> 对象</li><li>对于 <code>new</code> 的方式来说，<code>this</code> 被永远绑定在了 <code>c</code> 上面，不会被任何方式改变 <code>this</code></li></ul><blockquote><p>说完了以上几种情况，其实很多代码中的 <code>this</code> 应该就没什么问题了，下面让我们看看箭头函数中的 <code>this</code></p></blockquote><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">a</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">a</span>()()())</span><br></pre></td></tr></table></figure><ul><li>首先箭头函数其实是没有 <code>this</code> 的，箭头函数中的 <code>this</code> 只取决包裹箭头函数的第一个普通函数的 <code>this</code>。在这个例子中，因为包裹箭头函数的第一个普通函数是 <code>a</code>，所以此时的 <code>this</code> 是 <code>window</code>。另外对箭头函数使用 <code>bind</code>这类函数是无效的。</li><li>最后种情况也就是 <code>bind</code> 这些改变上下文的 <code>API</code> 了，对于这些函数来说，<code>this</code> 取决于第一个参数，如果第一个参数为空，那么就是 <code>window</code>。</li><li>那么说到 <code>bind</code>，不知道大家是否考虑过，如果对一个函数进行多次 <code>bind</code>，那么上下文会是什么呢？</li></ul><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> a = &#123;&#125;</span><br><span class="line"><span class="keyword">let</span> fn = <span class="keyword">function</span> (<span class="params"></span>) &#123; <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>) &#125;</span><br><span class="line">fn.<span class="title function_">bind</span>().<span class="title function_">bind</span>(a)() <span class="comment">// =&gt; ?</span></span><br></pre></td></tr></table></figure><blockquote><p>如果你认为输出结果是 <code>a</code>，那么你就错了，其实我们可以把上述代码转换成另一种形式</p></blockquote><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// fn.bind().bind(a) 等于</span></span><br><span class="line"><span class="keyword">let</span> fn2 = <span class="keyword">function</span> <span class="title function_">fn1</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> fn.<span class="title function_">apply</span>()</span><br><span class="line">  &#125;.<span class="title function_">apply</span>(a)</span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">fn2</span>()</span><br></pre></td></tr></table></figure><blockquote><p>可以从上述代码中发现，不管我们给函数 <code>bind</code> 几次，<code>fn</code> 中的 <code>this</code> 永远由第一次 <code>bind</code> 决定，所以结果永远是 <code>window</code></p></blockquote><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> a = &#123; <span class="attr">name</span>: <span class="string">&#x27;poetries&#x27;</span> &#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">foo</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">name</span>)</span><br><span class="line">&#125;</span><br><span class="line">foo.<span class="title function_">bind</span>(a)() <span class="comment">// =&gt; &#x27;poetries&#x27;</span></span><br></pre></td></tr></table></figure><blockquote><p>以上就是 <code>this</code> 的规则了，但是可能会发生多个规则同时出现的情况，这时候不同的规则之间会根据优先级最高的来决定 <code>this</code> 最终指向哪里。</p></blockquote><blockquote><p>首先，<code>new</code> 的方式优先级最高，接下来是 <code>bind</code> 这些函数，然后是 <code>obj.foo()</code> 这种调用方式，最后是 <code>foo</code> 这种调用方式，同时，箭头函数的 <code>this</code> 一旦被绑定，就不会再被任何方式所改变。</p></blockquote><p><img src="https://s.poetries.work/gitee/2020/07/2.png" alt="image.png"></p><p><strong>函数执行改变this</strong></p><ul><li>由于 JS 的设计原理: 在函数中，可以引用运行环境中的变量。因此就需要一个机制来让我们可以在函数体内部获取当前的运行环境，这便是<code>this</code>。</li></ul><blockquote><p>因此要明白 <code>this</code> 指向，其实就是要搞清楚 函数的运行环境，说人话就是，谁调用了函数。例如</p></blockquote><ul><li><code>obj.fn()</code>，便是 <code>obj</code> 调用了函数，既函数中的 <code>this === obj</code></li><li><code>fn()</code>，这里可以看成 <code>window.fn()</code>，因此 <code>this === window</code></li></ul><blockquote><p>但这种机制并不完全能满足我们的业务需求，因此提供了三种方式可以手动修改 <code>this</code> 的指向:</p></blockquote><ul><li><code>call: fn.call(target, 1, 2)</code></li><li><code>apply: fn.apply(target, [1, 2])</code></li><li><code>bind: fn.bind(target)(1,2)</code></li></ul>]]></content>
       
