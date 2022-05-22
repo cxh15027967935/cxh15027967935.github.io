@@ -4,6 +4,82 @@
   
     
     <entry>
+      <title>ReactHooks的限制</title>
+      <link href="/2022/05/20/ReactHooks%E7%9A%84%E9%99%90%E5%88%B6/"/>
+      <url>/2022/05/20/ReactHooks%E7%9A%84%E9%99%90%E5%88%B6/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      <categories>
+          
+          <category> react </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>react中的hooks</title>
+      <link href="/2022/05/20/react%E4%B8%AD%E7%9A%84hooks/"/>
+      <url>/2022/05/20/react%E4%B8%AD%E7%9A%84hooks/</url>
+      
+        <content type="html"><![CDATA[<h2 id="react-hooks"><a href="#react-hooks" class="headerlink" title="react hooks"></a>react hooks</h2><ul><li>代码逻辑聚合，逻辑复用</li><li>HOC嵌套地狱</li><li>代替class</li></ul><p><strong>react中通常使用 类定义 或者 函数定义 创建组件：</strong></p><p>在类定义中，我们可以使用到许多react特性，列如state、各种组件生命周期钩子等，但是在函数定义中，我们却无能为力，因此react16.8版本推出了一个新功能React Hooks，通过它，可以更好的在函数定义组件中使用 React 特性。</p><p><strong>函数组件与类组件的对比：无关“优劣”，只谈“不同”</strong></p><ul><li>类组件需要继承 class，函数组件不需要；</li><li>类组件可以访问生命周期方法，函数组件不能；</li><li>类组件中可以获取到实例化后的 this，并基于这个 this 做各种各样的事情，而函数组件不可以；</li><li>类组件中可以定义并维护 state（状态），而函数组件不可以；</li></ul><blockquote><p>但是类组件它太重了，对于解决许多问题来说，编写一个类组件实在是一个过于复杂的姿势。复杂的姿势必然带来高昂的理解成本，这也是我们所不想看到的</p></blockquote><p><strong>react hooks的好处:</strong></p><ol><li>跨组件复用: 其实 render props / HOC 也是为了复用，相比于它们，Hooks 作为官方的底层 API，最为轻量，而且改造成本小，不会影响原来的组件层次结构和传说中的嵌套地狱；</li><li>类定义更为复杂</li></ol><ul><li>不同的生命周期会使逻辑变得分散且混乱，不易维护和管理；</li><li>时刻需要关注this的指向问题；</li><li>代码复用代价高，高阶组件的使用经常会使整个组件树变得臃肿；</li></ul><ol><li>状态与UI隔离: 正是由于 Hooks 的特性，状态逻辑会变成更小的粒度，并且极容易被抽象成一个自定义 Hooks，组件中的状态和 UI 变得更为清晰和隔离。</li></ol><p><strong>注意:</strong></p><ul><li>避免在 循环/条件判断/嵌套函数 中调用 hooks，保证调用顺序的稳定；</li><li>只有 函数定义组件 和 hooks 可以调用 hooks，避免在 类组件 或者 普通函数 中调用；</li><li>不能在useEffect中使用useState，React 会报错提示；</li><li>类组件不会被替换或废弃，不需要强制改造类组件，两种方式能并存；</li></ul><p><strong>重要钩子</strong></p><ol><li>状态钩子 (useState): 用于定义组件的 State，其到类定义中this.state的功能；</li></ol><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// useState 只接受一个参数: 初始状态</span></span><br><span class="line"><span class="comment">// 返回的是组件名和更改该组件对应的函数</span></span><br><span class="line"><span class="keyword">const</span> [flag, setFlag] = <span class="title function_">useState</span>(<span class="literal">true</span>);</span><br><span class="line"><span class="comment">// 修改状态</span></span><br><span class="line"><span class="title function_">setFlag</span>(<span class="literal">false</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 上面的代码映射到类定义中:</span></span><br><span class="line"><span class="variable language_">this</span>.<span class="property">state</span> = &#123;</span><br><span class="line"><span class="attr">flag</span>: <span class="literal">true</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> flag = <span class="variable language_">this</span>.<span class="property">state</span>.<span class="property">flag</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">setFlag</span> = (<span class="params">bool</span>) =&gt; &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">setState</span>(&#123;</span><br><span class="line">        <span class="attr">flag</span>: bool,</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><ol><li>生命周期钩子 (useEffect):</li></ol><blockquote><p>类定义中有许多生命周期函数，而在 React Hooks 中也提供了一个相应的函数 (useEffect)，这里可以看做componentDidMount、componentDidUpdate和componentWillUnmount的结合。</p></blockquote><p><strong>useEffect(callback, [source])接受两个参数</strong></p><ul><li>callback: 钩子回调函数；</li><li>source: 设置触发条件，仅当 source 发生改变时才会触发；</li><li>useEffect钩子在没有传入[source]参数时，默认在每次 render 时都会优先调用上次保存的回调中返回的函数，后再重新调用回调；</li></ul><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line"><span class="comment">// 组件挂载后执行事件绑定</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;on&#x27;</span>)</span><br><span class="line"><span class="title function_">addEventListener</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 组件 update 时会执行事件解绑</span></span><br><span class="line"><span class="keyword">return</span> <span class="function">() =&gt;</span> &#123;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;off&#x27;</span>)</span><br><span class="line"><span class="title function_">removeEventListener</span>()</span><br><span class="line">&#125;</span><br><span class="line">&#125;, [source]);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 每次 source 发生改变时，执行结果(以类定义的生命周期，便于大家理解):</span></span><br><span class="line"><span class="comment">// --- DidMount ---</span></span><br><span class="line"><span class="comment">// &#x27;on&#x27;</span></span><br><span class="line"><span class="comment">// --- DidUpdate ---</span></span><br><span class="line"><span class="comment">// &#x27;off&#x27;</span></span><br><span class="line"><span class="comment">// &#x27;on&#x27;</span></span><br><span class="line"><span class="comment">// --- DidUpdate ---</span></span><br><span class="line"><span class="comment">// &#x27;off&#x27;</span></span><br><span class="line"><span class="comment">// &#x27;on&#x27;</span></span><br><span class="line"><span class="comment">// --- WillUnmount --- </span></span><br><span class="line"><span class="comment">// &#x27;off&#x27;</span></span><br></pre></td></tr></table></figure><p><strong>通过第二个参数，我们便可模拟出几个常用的生命周期:</strong></p><ul><li>componentDidMount: 传入[]时，就只会在初始化时调用一次</li></ul><figure class="highlight text"><table><tr><td class="code"><pre><span class="line">const useMount = (fn) =&gt; useEffect(fn, [])</span><br></pre></td></tr></table></figure><ul><li>componentWillUnmount: 传入[]，回调中的返回的函数也只会被最终执行一次</li></ul><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">useUnmount</span> = (<span class="params">fn</span>) =&gt; <span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> fn, [])</span><br></pre></td></tr></table></figure><ul><li>mounted: 可以使用 useState 封装成一个高度可复用的 mounted 状态；</li></ul><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">useMounted</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> [mounted, setMounted] = <span class="title function_">useState</span>(<span class="literal">false</span>);</span><br><span class="line">    <span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">        !mounted &amp;&amp; <span class="title function_">setMounted</span>(<span class="literal">true</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="function">() =&gt;</span> <span class="title function_">setMounted</span>(<span class="literal">false</span>);</span><br><span class="line">    &#125;, []);</span><br><span class="line">    <span class="keyword">return</span> mounted;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><ul><li>componentDidUpdate: useEffect每次均会执行，其实就是排除了 DidMount 后即可；</li></ul><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> mounted = <span class="title function_">useMounted</span>() </span><br><span class="line"><span class="title function_">useEffect</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    mounted &amp;&amp; <span class="title function_">fn</span>()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure><ol><li>其它内置钩子:</li></ol><ul><li><p><code>useContext</code>: 获取 context 对象</p></li><li><p>```<br>useReducer</p><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">  : 类似于 Redux 思想的实现，但其并不足以替代 Redux，可以理解成一个组件内部的 redux:</span><br><span class="line"></span><br><span class="line">  - 并不是持久化存储，会随着组件被销毁而销毁；</span><br><span class="line">  - 属于组件内部，各个组件是相互隔离的，单纯用它并无法共享数据；</span><br><span class="line">  - 配合useContext`的全局性，可以完成一个轻量级的 Redux；(easy-peasy)</span><br><span class="line"></span><br><span class="line">- `useCallback`: 缓存回调函数，避免传入的回调每次都是新的函数实例而导致依赖组件重新渲染，具有性能优化的效果；</span><br><span class="line"></span><br><span class="line">- `useMemo`: 用于缓存传入的 props，避免依赖的组件每次都重新渲染；</span><br><span class="line"></span><br><span class="line">- `useRef`: 获取组件的真实节点；</span><br><span class="line"></span><br><span class="line">- ```</span><br><span class="line">  useLayoutEffect</span><br></pre></td></tr></table></figure><ul><li>DOM更新同步钩子。用法与useEffect类似，只是区别于执行时间点的不同</li><li>useEffect属于异步执行，并不会等待 DOM 真正渲染后执行，而useLayoutEffect则会真正渲染后才触发；</li><li>可以获取更新后的 state；</li></ul></li></ul><ol><li>自定义钩子(useXxxxx): 基于 Hooks 可以引用其它 Hooks 这个特性，我们可以编写自定义钩子，如上面的useMounted。又例如，我们需要每个页面自定义标题:</li></ol><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">useTitle</span>(<span class="params">title</span>) &#123;</span><br><span class="line">  <span class="title function_">useEffect</span>(</span><br><span class="line">    <span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="variable language_">document</span>.<span class="property">title</span> = title;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用:</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Home</span>(<span class="params"></span>) &#123;</span><br><span class="line"><span class="keyword">const</span> title = <span class="string">&#x27;我是首页&#x27;</span></span><br><span class="line"><span class="title function_">useTitle</span>(title)</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> (</span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;title&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> react </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>正向代理和反向代理</title>
+      <link href="/2022/05/20/%E6%AD%A3%E5%90%91%E4%BB%A3%E7%90%86%E5%92%8C%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/"/>
+      <url>/2022/05/20/%E6%AD%A3%E5%90%91%E4%BB%A3%E7%90%86%E5%92%8C%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/</url>
+      
+        <content type="html"><![CDATA[<h3 id="正向代理"><a href="#正向代理" class="headerlink" title="正向代理"></a>正向代理</h3><p>我们常说的代理也就是指正向代理，正向代理的过程，它隐藏了真实的请求客户端，服务端不知道真实的客户端是谁，客户端请求的服务都被代理服务器代替来请求。</p><h3 id="反向代理"><a href="#反向代理" class="headerlink" title="反向代理"></a>反向代理</h3><p>这种代理模式下，它隐藏了真实的服务端，当我们向一个网站发起请求的时候，背后可能有成千上万台服务器为我们服务，具体是哪一台，我们不清楚，我们只需要知道反向代理服务器是谁就行，而且反向代理服务器会帮我们把请求转发到真实的服务器那里去，一般而言反向代理服务器一般用来实现负载平衡。</p><h3 id="负载平衡的两种实现方式？"><a href="#负载平衡的两种实现方式？" class="headerlink" title="负载平衡的两种实现方式？"></a>负载平衡的两种实现方式？</h3><p>一种是使用反向代理的方式，用户的请求都发送到反向代理服务上，然后由反向代理服务器来转发请求到真实的服务器上，以此来实现集群的负载平衡。<br>另一种是 DNS 的方式，DNS 可以用于在冗余的服务器上实现负载平衡。因为现在一般的大型网站使用多台服务器提供服务，因此一个域名可能会对应多个服务器地址。当用户向网站域名请求的时候，DNS 服务器返回这个域名所对应的服务器 IP 地址的集合，但在每个回答中，会循环这些 IP 地址的顺序，用户一般会选择排在前面的地址发送请求。以此将用户的请求均衡的分配到各个不同的服务器上，这样来实现负载均衡。这种方式有一个缺点就是，由于 DNS 服务器中存在缓存，所以有可能一个服务器出现故障后，域名解析仍然返回的是那个 IP 地址，就会造成访问的问题。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 服务器 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>短轮询、长轮询和 WebSocket 间的区别</title>
+      <link href="/2022/05/20/%E9%97%B4%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
+      <url>/2022/05/20/%E9%97%B4%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
+      
+        <content type="html"><![CDATA[<h3 id="短轮询"><a href="#短轮询" class="headerlink" title="短轮询"></a>短轮询</h3><p>短轮询的基本思路:</p><p>浏览器每隔一段时间向浏览器发送 http 请求，服务器端在收到请求后，不论是否有数据更新，都直接进行 响应。<br>这种方式实现的即时通信，本质上还是浏览器发送请求，服务器接受请求的一个过程，通过让客户端不断的进行请求，使得客户端能够模拟实时地收到服务器端的数据的变化。<br>优缺点👇</p><p>优点是比较简单，易于理解。<br>缺点是这种方式由于需要不断的建立 http 连接，严重浪费了服务器端和客户端的资源。当用户增加时，服务器端的压力就会变大，这是很不合理的。</p><h3 id="长轮询"><a href="#长轮询" class="headerlink" title="长轮询"></a>长轮询</h3><p>长轮询的基本思路:</p><p>首先由客户端向服务器发起请求，当服务器收到客户端发来的请求后，服务器端不会直接进行响应，而是先将 这个请求挂起，然后判断服务器端数据是否有更新。<br>如果有更新，则进行响应，如果一直没有数据，则到达一定的时间限制才返回。客户端 JavaScript 响应处理函数会在处理完服务器返回的信息后，再次发出请求，重新建立连接。<br>优缺点👇</p><p>长轮询和短轮询比起来，它的优点是明显减少了很多不必要的 http 请求次数，相比之下节约了资源。<br>长轮询的缺点在于，连接挂起也会导致资源的浪费</p><h3 id="WebSocket"><a href="#WebSocket" class="headerlink" title="WebSocket"></a>WebSocket</h3><p>WebSocket 是 Html5 定义的一个新协议，与传统的 http 协议不同，该协议允许由服务器主动的向客户端推送信息。<br>使用 WebSocket 协议的缺点是在服务器端的配置比较复杂。WebSocket 是一个全双工的协议，也就是通信双方是平等的，可以相互发送消息。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 服务器 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>setstate原理</title>
       <link href="/2022/05/19/setstate%E5%8E%9F%E7%90%86/"/>
       <url>/2022/05/19/setstate%E5%8E%9F%E7%90%86/</url>
@@ -603,6 +679,25 @@
       <categories>
           
           <category> vue </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>cookie和session、token的区别</title>
+      <link href="/2017/08/18/cookie%E5%92%8Csession%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
+      <url>/2017/08/18/cookie%E5%92%8Csession%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
+      
+        <content type="html"><![CDATA[<h2 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h2><p>客户端A访问服务器，服务器返回cookie给客户端A，客户端A存储cookie，下次需要带着cookie返回服务器，服务器返回相应的数据。</p><h2 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h2><p>Session会话：客户端A访问服务器，服务器存储A的数据value，把key返回给客户端A，客户端A下次带着key（session ID）来访问服务器，服务器就能给出客户端A的数据。如果负载均衡，客户端A访问了另一个服务器，那个服务器就没有客户端A的数据。</p><h2 id="cookie和session的区别"><a href="#cookie和session的区别" class="headerlink" title="cookie和session的区别"></a>cookie和session的区别</h2><h3 id="1、存储位置不同"><a href="#1、存储位置不同" class="headerlink" title="1、存储位置不同"></a>1、存储位置不同</h3><p>cookie的数据信息存放在客户端浏览器上。</p><p>session的数据信息存放在服务器上。</p><h3 id="2、存储容量不同"><a href="#2、存储容量不同" class="headerlink" title="2、存储容量不同"></a>2、存储容量不同</h3><p>单个cookie保存的数据&lt;=4KB，一个站点最多保存20个Cookie。</p><p>对于session来说并没有上限，但出于对服务器端的性能考虑，session内不要存放过多的东西，并且设置session删除机制。</p><h3 id="3、存储方式不同"><a href="#3、存储方式不同" class="headerlink" title="3、存储方式不同"></a>3、存储方式不同</h3><p>cookie中只能保管ASCII字符串，并需要通过编码方式存储为Unicode字符或者二进制数据。</p><p>session中能够存储任何类型的数据，包括且不限于string，integer，list，map等。</p><h3 id="4、隐私策略不同"><a href="#4、隐私策略不同" class="headerlink" title="4、隐私策略不同"></a>4、隐私策略不同</h3><p>cookie对客户端是可见的，别有用心的人可以分析存放在本地的cookie并进行cookie欺骗，所以它是不安全的。</p><p>session存储在服务器上，对客户端是透明对，不存在敏感信息泄漏的风险。</p><h3 id="5、有效期上不同"><a href="#5、有效期上不同" class="headerlink" title="5、有效期上不同"></a>5、有效期上不同</h3><p>开发可以通过设置cookie的属性，达到使cookie长期有效的效果。</p><p>session依赖于名为JSESSIONID的cookie，而cookie JSESSIONID的过期时间默认为-1，只需关闭窗口该session就会失效，因而session不能达到长期有效的效果。</p><h3 id="6、服务器压力不同"><a href="#6、服务器压力不同" class="headerlink" title="6、服务器压力不同"></a>6、服务器压力不同</h3><p>cookie保管在客户端，不占用服务器资源。对于并发用户十分多的网站，cookie是很好的选择。</p><p>session是保管在服务器端的，每个用户都会产生一个session。假如并发访问的用户十分多，会产生十分多的session，耗费大量的内存。</p><h3 id="7、浏览器支持不同"><a href="#7、浏览器支持不同" class="headerlink" title="7、浏览器支持不同"></a>7、浏览器支持不同</h3><p>假如客户端浏览器不支持cookie：</p><p>cookie是需要客户端浏览器支持的，假如客户端禁用了cookie，或者不支持cookie，则会话跟踪会失效。关于WAP上的应用，常规的cookie就派不上用场了。</p><p>运用session需要使用URL地址重写的方式。一切用到session程序的URL都要进行URL地址重写，否则session会话跟踪还会失效。</p><p>假如客户端支持cookie：</p><p>cookie既能够设为本浏览器窗口以及子窗口内有效，也能够设为一切窗口内有效。</p><p>session只能在本窗口以及子窗口内有效。</p><h3 id="8、跨域支持上不同"><a href="#8、跨域支持上不同" class="headerlink" title="8、跨域支持上不同"></a>8、跨域支持上不同</h3><p>cookie支持跨域名访问。</p><p>session不支持跨域名访问。</p><h2 id="Token"><a href="#Token" class="headerlink" title="Token"></a>Token</h2><p>token是服务端生成的一串字符串，以作客户端进行请求的一个令牌，当第一次登录后，服务器生成一个token便将此token返回客户端，以后客户端只需要带上这个token前来请求数据即可，无需再次带上用户名和密码</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> JavaScript </category>
           
       </categories>
       
