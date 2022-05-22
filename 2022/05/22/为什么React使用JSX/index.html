@@ -1,0 +1,174 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>为什么React使用JSX | ChenXinHan的博客</title><meta name="author" content="陈鑫寒"><meta name="copyright" content="陈鑫寒"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="在回答问题之前，我首先解释下什么是 JSX 吧。JSX 是一个 JavaScript 的语法扩展，结构类似 XML。 JSX 主要用于声明 React 元素，但 React 中并不强制使用 JSX。即使使用了 JSX，也会在构建过程中，通过 Babel 插件编译为 React.createElement。所以 JSX 更像是 React.createElement 的一种语法糖 接下来与 JS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="为什么React使用JSX">
+<meta property="og:url" content="http://example.com/2022/05/22/%E4%B8%BA%E4%BB%80%E4%B9%88React%E4%BD%BF%E7%94%A8JSX/index.html">
+<meta property="og:site_name" content="ChenXinHan的博客">
+<meta property="og:description" content="在回答问题之前，我首先解释下什么是 JSX 吧。JSX 是一个 JavaScript 的语法扩展，结构类似 XML。 JSX 主要用于声明 React 元素，但 React 中并不强制使用 JSX。即使使用了 JSX，也会在构建过程中，通过 Babel 插件编译为 React.createElement。所以 JSX 更像是 React.createElement 的一种语法糖 接下来与 JS">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/bj.jpeg">
+<meta property="article:published_time" content="2022-05-22T14:07:24.000Z">
+<meta property="article:modified_time" content="2022-05-22T14:09:29.718Z">
+<meta property="article:author" content="陈鑫寒">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/bj.jpeg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2022/05/22/%E4%B8%BA%E4%BB%80%E4%B9%88React%E4%BD%BF%E7%94%A8JSX/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '为什么React使用JSX',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2022-05-22 22:09:29'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/static-butterfly/dist/css/index.min.css"><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/option.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">51</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">1</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 档案</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 视频</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友联</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/bj.jpeg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">ChenXinHan的博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 档案</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 视频</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友联</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">为什么React使用JSX</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-05-22T14:07:24.000Z" title="发表于 2022-05-22 22:07:24">2022-05-22</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-05-22T14:09:29.718Z" title="更新于 2022-05-22 22:09:29">2022-05-22</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/react/">react</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="为什么React使用JSX"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p><img src="/2022/05/22/%E4%B8%BA%E4%BB%80%E4%B9%88React%E4%BD%BF%E7%94%A8JSX/20210425120721.png"></p>
+<ul>
+<li>在回答问题之前，我首先解释下什么是 JSX 吧。JSX 是一个 <code>JavaScript</code> 的语法扩展，结构类似 XML。</li>
+<li>JSX 主要用于声明 <code>React</code> 元素，但 React 中并不强制使用 <code>JSX</code>。即使使用了 <code>JSX</code>，也会在构建过程中，通过 Babel 插件编译为 <code>React.createElement</code>。所以 JSX 更像是 <code>React.createElement</code> 的一种语法糖</li>
+<li>接下来与 JSX 以外的三种技术方案进行对比<ul>
+<li>首先是模板，React 团队认为模板不应该是开发过程中的关注点，因为引入了模板语法、模板指令等概念，是一种不佳的实现方案</li>
+<li>其次是模板字符串，模板字符串编写的结构会造成多次内部嵌套，使整个结构变得复杂，并且优化代码提示也会变得困难重重</li>
+<li>所以 React 最后选用了 JSX，因为 JSX 与其设计思想贴合，不需要引入过多新的概念，对编辑器的代码提示也极为友好。</li>
+</ul>
+</li>
+</ul>
+<p><strong>Babel 插件如何实现 JSX 到 JS 的编译？ 在 React 面试中，这个问题很容易被追问，也经常被要求手写。</strong></p>
+<p>它的实现原理是这样的。Babel 读取代码并解析，生成 AST，再将 AST 传入插件层进行转换，在转换时就可以将 JSX 的结构转换为 <code>React.createElement</code> 的函数。如下代码所示：</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = <span class="keyword">function</span> (<span class="params">babel</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> t = babel.<span class="property">types</span>;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&quot;custom-jsx-plugin&quot;</span>,</span><br><span class="line">    <span class="attr">visitor</span>: &#123;</span><br><span class="line">      <span class="title class_">JSXElement</span>(path) &#123;</span><br><span class="line">        <span class="keyword">var</span> openingElement = path.<span class="property">node</span>.<span class="property">openingElement</span>;</span><br><span class="line">        <span class="keyword">var</span> tagName = openingElement.<span class="property">name</span>.<span class="property">name</span>;</span><br><span class="line">        <span class="keyword">var</span> args = []; </span><br><span class="line">        args.<span class="title function_">push</span>(t.<span class="title function_">stringLiteral</span>(tagName)); </span><br><span class="line">        <span class="keyword">var</span> attribs = t.<span class="title function_">nullLiteral</span>(); </span><br><span class="line">        args.<span class="title function_">push</span>(attribs); </span><br><span class="line">        <span class="keyword">var</span> reactIdentifier = t.<span class="title function_">identifier</span>(<span class="string">&quot;React&quot;</span>); <span class="comment">//object</span></span><br><span class="line">        <span class="keyword">var</span> createElementIdentifier = t.<span class="title function_">identifier</span>(<span class="string">&quot;createElement&quot;</span>); </span><br><span class="line">        <span class="keyword">var</span> callee = t.<span class="title function_">memberExpression</span>(reactIdentifier, createElementIdentifier)</span><br><span class="line">        <span class="keyword">var</span> callExpression = t.<span class="title function_">callExpression</span>(callee, args);</span><br><span class="line">        callExpression.<span class="property">arguments</span> = callExpression.<span class="property">arguments</span>.<span class="title function_">concat</span>(path.<span class="property">node</span>.<span class="property">children</span>);</span><br><span class="line">        path.<span class="title function_">replaceWith</span>(callExpression, path.<span class="property">node</span>); </span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><strong>React.createElement源码分析</strong></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> 101. React的创建元素方法</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">createElement</span>(<span class="params">type, config, children</span>) &#123;</span><br><span class="line">  <span class="comment">// propName 变量用于储存后面需要用到的元素属性</span></span><br><span class="line">  <span class="keyword">let</span> propName; </span><br><span class="line">  <span class="comment">// props 变量用于储存元素属性的键值对集合</span></span><br><span class="line">  <span class="keyword">const</span> props = &#123;&#125;; </span><br><span class="line">  <span class="comment">// key、ref、self、source 均为 React 元素的属性，此处不必深究</span></span><br><span class="line">  <span class="keyword">let</span> key = <span class="literal">null</span>;</span><br><span class="line">  <span class="keyword">let</span> ref = <span class="literal">null</span>; </span><br><span class="line">  <span class="keyword">let</span> self = <span class="literal">null</span>; </span><br><span class="line">  <span class="keyword">let</span> source = <span class="literal">null</span>; </span><br><span class="line"></span><br><span class="line">  <span class="comment">// config 对象中存储的是元素的属性</span></span><br><span class="line">  <span class="keyword">if</span> (config != <span class="literal">null</span>) &#123; </span><br><span class="line">    <span class="comment">// 进来之后做的第一件事，是依次对 ref、key、self 和 source 属性赋值</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="title function_">hasValidRef</span>(config)) &#123;</span><br><span class="line">      ref = config.<span class="property">ref</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 此处将 key 值字符串化</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="title function_">hasValidKey</span>(config)) &#123;</span><br><span class="line">      key = <span class="string">&#x27;&#x27;</span> + config.<span class="property">key</span>; </span><br><span class="line">    &#125;</span><br><span class="line">    self = config.<span class="property">__self</span> === <span class="literal">undefined</span> ? <span class="literal">null</span> : config.<span class="property">__self</span>;</span><br><span class="line">    source = config.<span class="property">__source</span> === <span class="literal">undefined</span> ? <span class="literal">null</span> : config.<span class="property">__source</span>;</span><br><span class="line">    <span class="comment">// 接着就是要把 config 里面的属性都一个一个挪到 props 这个之前声明好的对象里面</span></span><br><span class="line">    <span class="keyword">for</span> (propName <span class="keyword">in</span> config) &#123;</span><br><span class="line">      <span class="keyword">if</span> (</span><br><span class="line">        <span class="comment">// 筛选出可以提进 props 对象里的属性</span></span><br><span class="line">        hasOwnProperty.<span class="title function_">call</span>(config, propName) &amp;&amp;</span><br><span class="line">        !<span class="variable constant_">RESERVED_PROPS</span>.<span class="title function_">hasOwnProperty</span>(propName) </span><br><span class="line">      ) &#123;</span><br><span class="line">        props[propName] = config[propName]; </span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// childrenLength 指的是当前元素的子元素的个数，减去的 2 是 type 和 config 两个参数占用的长度</span></span><br><span class="line">  <span class="keyword">const</span> childrenLength = <span class="variable language_">arguments</span>.<span class="property">length</span> - <span class="number">2</span>; </span><br><span class="line">  <span class="comment">// 如果抛去type和config，就只剩下一个参数，一般意味着文本节点出现了</span></span><br><span class="line">  <span class="keyword">if</span> (childrenLength === <span class="number">1</span>) &#123; </span><br><span class="line">    <span class="comment">// 直接把这个参数的值赋给props.children</span></span><br><span class="line">    props.<span class="property">children</span> = children; </span><br><span class="line">    <span class="comment">// 处理嵌套多个子元素的情况</span></span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (childrenLength &gt; <span class="number">1</span>) &#123; </span><br><span class="line">    <span class="comment">// 声明一个子元素数组</span></span><br><span class="line">    <span class="keyword">const</span> childArray = <span class="title class_">Array</span>(childrenLength); </span><br><span class="line">    <span class="comment">// 把子元素推进数组里</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; childrenLength; i++) &#123; </span><br><span class="line">      childArray[i] = <span class="variable language_">arguments</span>[i + <span class="number">2</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 最后把这个数组赋值给props.children</span></span><br><span class="line">    props.<span class="property">children</span> = childArray; </span><br><span class="line">  &#125; </span><br><span class="line"></span><br><span class="line">  <span class="comment">// 处理 defaultProps</span></span><br><span class="line">  <span class="keyword">if</span> (type &amp;&amp; type.<span class="property">defaultProps</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> defaultProps = type.<span class="property">defaultProps</span>;</span><br><span class="line">    <span class="keyword">for</span> (propName <span class="keyword">in</span> defaultProps) &#123; </span><br><span class="line">      <span class="keyword">if</span> (props[propName] === <span class="literal">undefined</span>) &#123;</span><br><span class="line">        props[propName] = defaultProps[propName];</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 最后返回一个调用ReactElement执行方法，并传入刚才处理过的参数</span></span><br><span class="line">  <span class="keyword">return</span> <span class="title class_">ReactElement</span>(</span><br><span class="line">    type,</span><br><span class="line">    key,</span><br><span class="line">    ref,</span><br><span class="line">    self,</span><br><span class="line">    source,</span><br><span class="line">    <span class="title class_">ReactCurrentOwner</span>.<span class="property">current</span>,</span><br><span class="line">    props,</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>入参解读：创造一个元素需要知道哪些信息</strong></p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">createElement</span>(<span class="params">type, config, children</span>)</span><br></pre></td></tr></table></figure>
+
+<p>createElement 有 3 个入参，这 3 个入参囊括了 React 创建一个元素所需要知道的全部信息。</p>
+<ul>
+<li><code>type</code>：用于标识节点的类型。它可以是类似“h1”“div”这样的标准 HTML 标签字符串，也可以是 React 组件类型或 <code>React fragment</code> 类型。</li>
+<li><code>config</code>：以对象形式传入，组件所有的属性都会以键值对的形式存储在 config 对象中。</li>
+<li><code>children</code>：以对象形式传入，它记录的是组件标签之间嵌套的内容，也就是所谓的“子节点”“子元素”</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="title class_">React</span>.<span class="title function_">createElement</span>(<span class="string">&quot;ul&quot;</span>, &#123;</span><br><span class="line">  <span class="comment">// 传入属性键值对</span></span><br><span class="line">  <span class="attr">className</span>: <span class="string">&quot;list&quot;</span></span><br><span class="line">   <span class="comment">// 从第三个入参开始往后，传入的参数都是 children</span></span><br><span class="line">&#125;, <span class="title class_">React</span>.<span class="title function_">createElement</span>(<span class="string">&quot;li&quot;</span>, &#123;</span><br><span class="line">  <span class="attr">key</span>: <span class="string">&quot;1&quot;</span></span><br><span class="line">&#125;, <span class="string">&quot;1&quot;</span>), <span class="title class_">React</span>.<span class="title function_">createElement</span>(<span class="string">&quot;li&quot;</span>, &#123;</span><br><span class="line">  <span class="attr">key</span>: <span class="string">&quot;2&quot;</span></span><br><span class="line">&#125;, <span class="string">&quot;2&quot;</span>));</span><br></pre></td></tr></table></figure>
+
+<p>这个调用对应的 DOM 结构如下：</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">className</span>=<span class="string">&quot;list&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">key</span>=<span class="string">&quot;1&quot;</span>&gt;</span>1<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">key</span>=<span class="string">&quot;2&quot;</span>&gt;</span>2<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">陈鑫寒</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2022/05/22/%E4%B8%BA%E4%BB%80%E4%B9%88React%E4%BD%BF%E7%94%A8JSX/">http://example.com/2022/05/22/%E4%B8%BA%E4%BB%80%E4%B9%88React%E4%BD%BF%E7%94%A8JSX/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">ChenXinHan的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/bj.jpeg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2022/05/22/createElement%E5%87%BD%E6%95%B0%E4%BD%93%E6%8B%86%E8%A7%A3/"><img class="prev-cover" src="/img/bj.jpeg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">createElement函数体拆解</div></div></a></div><div class="next-post pull-right"><a href="/2022/05/22/JSX%E8%AF%AD%E6%B3%95%E7%B3%96%E6%9C%AC%E8%B4%A8/"><img class="next-cover" src="/img/bj.jpeg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">JSX语法糖本质</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/option.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">陈鑫寒</div><div class="author-info__description">当一切都不顺利时，就向左走</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">51</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">1</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/05/22/createElement%E5%87%BD%E6%95%B0%E4%BD%93%E6%8B%86%E8%A7%A3/" title="createElement函数体拆解"><img src="/img/bj.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="createElement函数体拆解"/></a><div class="content"><a class="title" href="/2022/05/22/createElement%E5%87%BD%E6%95%B0%E4%BD%93%E6%8B%86%E8%A7%A3/" title="createElement函数体拆解">createElement函数体拆解</a><time datetime="2022-05-22T14:09:55.000Z" title="发表于 2022-05-22 22:09:55">2022-05-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/05/22/%E4%B8%BA%E4%BB%80%E4%B9%88React%E4%BD%BF%E7%94%A8JSX/" title="为什么React使用JSX"><img src="/img/bj.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="为什么React使用JSX"/></a><div class="content"><a class="title" href="/2022/05/22/%E4%B8%BA%E4%BB%80%E4%B9%88React%E4%BD%BF%E7%94%A8JSX/" title="为什么React使用JSX">为什么React使用JSX</a><time datetime="2022-05-22T14:07:24.000Z" title="发表于 2022-05-22 22:07:24">2022-05-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/05/22/JSX%E8%AF%AD%E6%B3%95%E7%B3%96%E6%9C%AC%E8%B4%A8/" title="JSX语法糖本质"><img src="/img/bj.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="JSX语法糖本质"/></a><div class="content"><a class="title" href="/2022/05/22/JSX%E8%AF%AD%E6%B3%95%E7%B3%96%E6%9C%AC%E8%B4%A8/" title="JSX语法糖本质">JSX语法糖本质</a><time datetime="2022-05-22T14:04:43.000Z" title="发表于 2022-05-22 22:04:43">2022-05-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/05/20/ReactHooks%E7%9A%84%E9%99%90%E5%88%B6/" title="ReactHooks的限制"><img src="/img/bj.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="ReactHooks的限制"/></a><div class="content"><a class="title" href="/2022/05/20/ReactHooks%E7%9A%84%E9%99%90%E5%88%B6/" title="ReactHooks的限制">ReactHooks的限制</a><time datetime="2022-05-20T01:13:03.000Z" title="发表于 2022-05-20 09:13:03">2022-05-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/05/20/react%E4%B8%AD%E7%9A%84hooks/" title="react中的hooks"><img src="/img/bj.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="react中的hooks"/></a><div class="content"><a class="title" href="/2022/05/20/react%E4%B8%AD%E7%9A%84hooks/" title="react中的hooks">react中的hooks</a><time datetime="2022-05-20T00:51:27.000Z" title="发表于 2022-05-20 08:51:27">2022-05-20</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2015 - 2022 By 陈鑫寒</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
