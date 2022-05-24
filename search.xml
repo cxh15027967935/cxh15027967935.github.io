@@ -4,6 +4,120 @@
   
     
     <entry>
+      <title>HTTPS工作原理</title>
+      <link href="/2022/05/24/HTTPS%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/"/>
+      <url>/2022/05/24/HTTPS%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/</url>
+      
+        <content type="html"><![CDATA[<p>我们可以把HTTPS理解成<strong>HTTPS = HTTP + SSL/TLS</strong></p><blockquote><p>TLS/SSL 的功能实现主要依赖于三类基本算法：<code>散列函数</code> 、<code>对称加密</code>和<code>非对称加密</code>，其利用非对称加密实现身份认证和密钥协商，对称加密算法采用协商的密钥对数据加密，基于散列函数验证信息的完整性。</p></blockquote><p><strong>1. 对称加密</strong></p><blockquote><p>加密和解密用同一个秘钥的加密方式叫做对称加密。Client客户端和Server端共用一套密钥，这样子的加密过程似乎很让人理解，但是随之会产生一些问题。</p></blockquote><p><strong>问题一:</strong> WWW万维网有许许多多的客户端，不可能都用秘钥A进行信息加密，这样子很不合理，所以解决办法就是使用一个客户端使用一个密钥进行加密。</p><p><strong>问题二:既然不同的客户端使用不同的密钥，那么对称加密的密钥如何传输？</strong> 那么解决的办法只能是<strong>一端生成一个秘钥，然后通过HTTP传输给另一端</strong>，那么这样子又会产生新的问题。</p><p><strong>问题三:</strong> 这个传输密钥的过程，又如何保证加密？<strong>如果被中间人拦截，密钥也会被获取,</strong> 那么你会说对密钥再进行加密，那又怎么保存对密钥加密的过程，是加密的过程？</p><p>到这里，我们似乎想明白了，使用对称加密的方式，行不通，所以我们需要采用非对称加密👇</p><p><strong>2. 非对称加密</strong></p><blockquote><p>通过上面的分析，对称加密的方式行不通，那么我们来梳理一下非对称加密。采用的算法是RSA，所以在一些文章中也会看见<strong>传统RSA握手</strong>，基于现在TLS主流版本是1.2，所以接下来梳理的是<strong>TLS/1.2握手过程</strong>。</p></blockquote><p>非对称加密中，我们需要明确的点是👇</p><ul><li>有一对秘钥，<strong>公钥</strong>和<strong>私钥</strong>。</li><li>公钥加密的内容，只有私钥可以解开，私钥加密的内容，所有的公钥都可以解开，这里说的<strong>公钥都可以解开，指的是一对秘钥</strong>。</li><li>公钥可以发送给所有的客户端，私钥只保存在服务器端。</li></ul><p><strong>3. 主要工作流程</strong></p><p>梳理起来，可以把<strong>TLS 1.2 握手过程</strong>分为主要的五步👇</p><p><img src="/2022/05/24/HTTPS%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/20210409105413.png"></p><ul><li>步骤一：Client发起一个HTTPS请求，连接443端口。这个过程可以理解成是<strong>请求公钥的过程</strong>。</li><li>步骤二：Server端收到请求后，通过第三方机构私钥加密，会把数字证书（也可以认为是公钥证书）发送给Client。</li><li>步骤三：<ul><li>浏览器安装后会自动带一些权威第三方机构公钥，使用匹配的公钥对数字签名进行解密。</li><li>根据签名生成的规则对网站信息进行本地签名生成，然后两者比对。</li><li>通过比对两者签名，匹配则说明认证通过，不匹配则获取证书失败。</li></ul></li><li>步骤四：在安全拿到<strong>服务器公钥</strong>后，客户端Client随机生成一个<strong>对称密钥</strong>，使用<strong>服务器公钥</strong>（证书的公钥）加密这个<strong>对称密钥</strong>，发送给Server(服务器)。</li><li>步骤五：Server(服务器)通过自己的私钥，对信息解密，至此得到了<strong>对称密钥</strong>，此时两者都拥有了相同的<strong>对称密钥</strong>。</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> HTTP </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>HTTPS握手过程</title>
+      <link href="/2022/05/24/HTTPS%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B/"/>
+      <url>/2022/05/24/HTTPS%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B/</url>
+      
+        <content type="html"><![CDATA[<ul><li>第一步，客户端给出协议版本号、一个客户端生成的随机数（Client random），以及客户端支持的加密方法</li><li>第二步，服务端确认双方使用的加密方法，并给出数字证书、以及一个服务器生成的随机数</li><li>第三步，客户端确认数字证书有效，然后生成一个新的随机数（Premaster secret），并使用数字证书中的公钥，加密这个随机数，发给服务端</li><li>第四步，服务端使用自己的私钥，获取客户端发来的随机数（即Premaster secret）。</li><li>第五步，客户端和服务端根据约定的加密方法，使用前面的三个随机数，生成”对话密钥”（session key），用来加密接下来的整个对话过程</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> HTTP </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>GET 和 POST 的区别</title>
+      <link href="/2022/05/24/%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
+      <url>/2022/05/24/%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
+      
+        <content type="html"><![CDATA[<h3 id="谈一谈GET-和-POST-的区别"><a href="#谈一谈GET-和-POST-的区别" class="headerlink" title="谈一谈GET 和 POST 的区别"></a>谈一谈GET 和 POST 的区别</h3><p>本质上，只是语义上的区别，GET 用于获取资源，POST 用于提交资源。</p><p>具体差别👇</p><ul><li>从缓存角度看，GET 请求后浏览器会主动缓存，POST 默认情况下不能。</li><li>从参数角度来看，GET请求一般放在URL中，因此不安全，POST请求放在请求体中，相对而言较为安全，但是在抓包的情况下都是一样的。</li><li>从编码角度看，GET请求只能经行URL编码，只能接受ASCII码，而POST支持更多的编码类型且不对数据类型限值。</li><li>GET请求幂等，POST请求不幂等，幂等指发送 M 和 N 次请求（两者不相同且都大于1），服务器上资源的状态一致。</li><li>GET请求会一次性发送请求报文，POST请求通常分为两个TCP数据包，首先发 header 部分，如果服务器响应 100(continue)， 然后发 body 部分。</li></ul><h3 id><a href="#" class="headerlink" title></a></h3>]]></content>
+      
+      
+      <categories>
+          
+          <category> HTTP </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>HTTP状态码</title>
+      <link href="/2022/05/24/HTTP%E7%8A%B6%E6%80%81%E7%A0%81/"/>
+      <url>/2022/05/24/HTTP%E7%8A%B6%E6%80%81%E7%A0%81/</url>
+      
+        <content type="html"><![CDATA[<h3 id="HTTP状态码"><a href="#HTTP状态码" class="headerlink" title="HTTP状态码"></a>HTTP状态码</h3><ul><li>1xx 信息性状态码 websocket upgrade</li><li>2xx 成功状态码<ul><li>200 服务器已成功处理了请求</li><li>204(没有响应体)</li><li>206(范围请求 暂停继续下载)</li></ul></li><li>3xx 重定向状态码<ul><li>301(永久) ：请求的页面已永久跳转到新的url</li><li>302(临时) ：允许各种各样的重定向，一般情况下都会实现为到 <code>GET</code> 的重定向，但是不能确保 <code>POST</code> 会重定向为 <code>POST</code></li><li>303 只允许任意请求到 <code>GET</code> 的重定向</li><li>304 未修改：自从上次请求后，请求的网页未修改过</li><li>307：<code>307</code> 和 <code>302</code> 一样，除了不允许 <code>POST</code> 到 <code>GET</code> 的重定向</li></ul></li><li>4xx 客户端错误状态码<ul><li>400 客户端参数错误</li><li>401 没有登录</li><li>403 登录了没权限 比如管理系统</li><li>404 页面不存在</li><li>405 禁用请求中指定的方法</li></ul></li><li>5xx 服务端错误状态码<ul><li>500 服务器错误：服务器内部错误，无法完成请求</li><li>502 错误网关：服务器作为网关或代理出现错误</li><li>503 服务不可用：服务器目前无法使用</li><li>504 网关超时：网关或代理服务器，未及时获取请求</li></ul></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> HTTP </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>jsonp的工作原理</title>
+      <link href="/2022/05/23/jsonp%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/"/>
+      <url>/2022/05/23/jsonp%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/</url>
+      
+        <content type="html"><![CDATA[<p>jsonp的原理：jsonp之所以能跨域，是因为他并不是发送ajax请求，并不是利用XMLHTTPRequest对象和服务端进行通信，他其实是利用动态创建的script标签，而script标签是没有同源策略限制的，可以跨域的。创建script标签，然后将其src，指向我们真实的服务端的地址，在这个地址的后面有一个参数比如calback=a,然后服务端可以解析到这个url，中的callback=a，服务端在返回的数据时，就会调用a方法，去包裹一段数据，然后返回这段js代码，相当于在前端去执行这个a方法。那么在前端发送请求之前，就要在window上去注册这个a方法，那么在服务端返回这个a方法执行的时候，就可以去之前在window上定义的a方法中获得数据了</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> JavaScript </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>SSR解决了什么问题？</title>
+      <link href="/2022/05/23/SSR%E8%A7%A3%E5%86%B3%E4%BA%86%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98%EF%BC%9F%E6%9C%89%E5%81%9A%E8%BF%87SSR%E5%90%97%EF%BC%9F%E4%BD%A0%E6%98%AF%E6%80%8E%E4%B9%88%E5%81%9A%E7%9A%84%EF%BC%9F/"/>
+      <url>/2022/05/23/SSR%E8%A7%A3%E5%86%B3%E4%BA%86%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98%EF%BC%9F%E6%9C%89%E5%81%9A%E8%BF%87SSR%E5%90%97%EF%BC%9F%E4%BD%A0%E6%98%AF%E6%80%8E%E4%B9%88%E5%81%9A%E7%9A%84%EF%BC%9F/</url>
+      
+        <content type="html"><![CDATA[<h2 id="一、是什么"><a href="#一、是什么" class="headerlink" title="一、是什么"></a>一、是什么</h2><p><code>Server-Side Rendering</code> 我们称其为<code>SSR</code>，意为服务端渲染</p><p>指由服务侧完成页面的 <code>HTML</code> 结构拼接的页面处理技术，发送到浏览器，然后为其绑定状态与事件，成为完全可交互页面的过程</p><p>看看<code>Vue</code>官方对<code>SSR</code>的解释：</p><blockquote><p>Vue.js 是构建客户端应用程序的框架。默认情况下，可以在浏览器中输出 Vue 组件，进行生成 DOM 和操作 DOM。然而，也可以将同一个组件渲染为服务器端的 HTML 字符串，将它们直接发送到浏览器，最后将这些静态标记”激活”为客户端上完全可交互的应用程序</p><p>服务器渲染的 Vue.js 应用程序也可以被认为是”同构”或”通用”，因为应用程序的大部分代码都可以在服务器和客户端上运行</p></blockquote><p>我们从上面解释得到以下结论：</p><ul><li><code>Vue SSR</code>是一个在<code>SPA</code>上进行改良的服务端渲染</li><li>通过<code>Vue SSR</code>渲染的页面，需要在客户端激活才能实现交互</li><li><code>Vue SSR</code>将包含两部分：服务端渲染的首屏，包含交互的<code>SPA</code></li></ul><h2 id="二、解决了什么"><a href="#二、解决了什么" class="headerlink" title="二、解决了什么"></a>二、解决了什么</h2><p>SSR主要解决了以下两种问题：</p><ul><li>seo：搜索引擎优先爬取页面<code>HTML</code>结构，使用<code>ssr</code>时，服务端已经生成了和业务想关联的<code>HTML</code>，有利于<code>seo</code></li><li>首屏呈现渲染：用户无需等待页面所有<code>js</code>加载完成就可以看到页面视图（压力来到了服务器，所以需要权衡哪些用服务端渲染，哪些交给客户端）</li></ul><p>但是使用<code>SSR</code>同样存在以下的缺点：</p><ul><li>复杂度：整个项目的复杂度</li><li>库的支持性，代码兼容</li><li>性能问题<ul><li>每个请求都是<code>n</code>个实例的创建，不然会污染，消耗会变得很大</li><li>缓存 <code>node serve</code>、 <code>ngin</code>x判断当前用户有没有过期，如果没过期的话就缓存，用刚刚的结果。</li><li>降级：监控<code>cpu</code>、内存占用过多，就<code>spa</code>，返回单个的壳</li></ul></li><li>服务器负载变大，相对于前后端分离务器只需要提供静态资源来说，服务器负载更大，所以要慎重使用</li></ul><p>所以在我们选择是否使用<code>SSR</code>前，我们需要慎重问问自己这些问题：</p><ol><li>需要<code>SEO</code>的页面是否只是少数几个，这些是否可以使用预渲染（Prerender SPA Plugin）实现</li><li>首屏的请求响应逻辑是否复杂，数据返回是否大量且缓慢</li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> vue </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>vue过滤器</title>
       <link href="/2022/05/23/vue%E8%BF%87%E6%BB%A4%E5%99%A8/"/>
       <url>/2022/05/23/vue%E8%BF%87%E6%BB%A4%E5%99%A8/</url>

@@ -1,0 +1,181 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>HTTPS工作原理 | ChenXinHan的博客</title><meta name="author" content="陈鑫寒"><meta name="copyright" content="陈鑫寒"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="我们可以把HTTPS理解成HTTPS &#x3D; HTTP + SSL&#x2F;TLS  TLS&#x2F;SSL 的功能实现主要依赖于三类基本算法：散列函数 、对称加密和非对称加密，其利用非对称加密实现身份认证和密钥协商，对称加密算法采用协商的密钥对数据加密，基于散列函数验证信息的完整性。  1. 对称加密  加密和解密用同一个秘钥的加密方式叫做对称加密。Client客户端和Server端共用一套密钥，这样子的加密过程似">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTTPS工作原理">
+<meta property="og:url" content="http://example.com/2022/05/24/HTTPS%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/index.html">
+<meta property="og:site_name" content="ChenXinHan的博客">
+<meta property="og:description" content="我们可以把HTTPS理解成HTTPS &#x3D; HTTP + SSL&#x2F;TLS  TLS&#x2F;SSL 的功能实现主要依赖于三类基本算法：散列函数 、对称加密和非对称加密，其利用非对称加密实现身份认证和密钥协商，对称加密算法采用协商的密钥对数据加密，基于散列函数验证信息的完整性。  1. 对称加密  加密和解密用同一个秘钥的加密方式叫做对称加密。Client客户端和Server端共用一套密钥，这样子的加密过程似">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/bj.jpeg">
+<meta property="article:published_time" content="2022-05-24T14:35:24.000Z">
+<meta property="article:modified_time" content="2022-05-24T14:38:01.436Z">
+<meta property="article:author" content="陈鑫寒">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/bj.jpeg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2022/05/24/HTTPS%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'HTTPS工作原理',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2022-05-24 22:38:01'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/static-butterfly/dist/css/index.min.css"><meta name="generator" content="Hexo 5.4.2"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/option.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">62</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">1</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 档案</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 视频</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友联</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/bj.jpeg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">ChenXinHan的博客</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 档案</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 列表</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 视频</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友联</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">HTTPS工作原理</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-05-24T14:35:24.000Z" title="发表于 2022-05-24 22:35:24">2022-05-24</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-05-24T14:38:01.436Z" title="更新于 2022-05-24 22:38:01">2022-05-24</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/HTTP/">HTTP</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="HTTPS工作原理"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>我们可以把HTTPS理解成<strong>HTTPS = HTTP + SSL/TLS</strong></p>
+<blockquote>
+<p>TLS/SSL 的功能实现主要依赖于三类基本算法：<code>散列函数</code> 、<code>对称加密</code>和<code>非对称加密</code>，其利用非对称加密实现身份认证和密钥协商，对称加密算法采用协商的密钥对数据加密，基于散列函数验证信息的完整性。</p>
+</blockquote>
+<p><strong>1. 对称加密</strong></p>
+<blockquote>
+<p>加密和解密用同一个秘钥的加密方式叫做对称加密。Client客户端和Server端共用一套密钥，这样子的加密过程似乎很让人理解，但是随之会产生一些问题。</p>
+</blockquote>
+<p><strong>问题一:</strong> WWW万维网有许许多多的客户端，不可能都用秘钥A进行信息加密，这样子很不合理，所以解决办法就是使用一个客户端使用一个密钥进行加密。</p>
+<p><strong>问题二:既然不同的客户端使用不同的密钥，那么对称加密的密钥如何传输？</strong> 那么解决的办法只能是<strong>一端生成一个秘钥，然后通过HTTP传输给另一端</strong>，那么这样子又会产生新的问题。</p>
+<p><strong>问题三:</strong> 这个传输密钥的过程，又如何保证加密？<strong>如果被中间人拦截，密钥也会被获取,</strong> 那么你会说对密钥再进行加密，那又怎么保存对密钥加密的过程，是加密的过程？</p>
+<p>到这里，我们似乎想明白了，使用对称加密的方式，行不通，所以我们需要采用非对称加密👇</p>
+<p><strong>2. 非对称加密</strong></p>
+<blockquote>
+<p>通过上面的分析，对称加密的方式行不通，那么我们来梳理一下非对称加密。采用的算法是RSA，所以在一些文章中也会看见<strong>传统RSA握手</strong>，基于现在TLS主流版本是1.2，所以接下来梳理的是<strong>TLS/1.2握手过程</strong>。</p>
+</blockquote>
+<p>非对称加密中，我们需要明确的点是👇</p>
+<ul>
+<li>有一对秘钥，<strong>公钥</strong>和<strong>私钥</strong>。</li>
+<li>公钥加密的内容，只有私钥可以解开，私钥加密的内容，所有的公钥都可以解开，这里说的<strong>公钥都可以解开，指的是一对秘钥</strong>。</li>
+<li>公钥可以发送给所有的客户端，私钥只保存在服务器端。</li>
+</ul>
+<p><strong>3. 主要工作流程</strong></p>
+<p>梳理起来，可以把<strong>TLS 1.2 握手过程</strong>分为主要的五步👇</p>
+<p><img src="/2022/05/24/HTTPS%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/20210409105413.png"></p>
+<ul>
+<li>步骤一：Client发起一个HTTPS请求，连接443端口。这个过程可以理解成是<strong>请求公钥的过程</strong>。</li>
+<li>步骤二：Server端收到请求后，通过第三方机构私钥加密，会把数字证书（也可以认为是公钥证书）发送给Client。</li>
+<li>步骤三：<ul>
+<li>浏览器安装后会自动带一些权威第三方机构公钥，使用匹配的公钥对数字签名进行解密。</li>
+<li>根据签名生成的规则对网站信息进行本地签名生成，然后两者比对。</li>
+<li>通过比对两者签名，匹配则说明认证通过，不匹配则获取证书失败。</li>
+</ul>
+</li>
+<li>步骤四：在安全拿到<strong>服务器公钥</strong>后，客户端Client随机生成一个<strong>对称密钥</strong>，使用<strong>服务器公钥</strong>（证书的公钥）加密这个<strong>对称密钥</strong>，发送给Server(服务器)。</li>
+<li>步骤五：Server(服务器)通过自己的私钥，对信息解密，至此得到了<strong>对称密钥</strong>，此时两者都拥有了相同的<strong>对称密钥</strong>。</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="http://example.com">陈鑫寒</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2022/05/24/HTTPS%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/">http://example.com/2022/05/24/HTTPS%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">ChenXinHan的博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/bj.jpeg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/gh/overtrue/share.js@master/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2022/05/24/HTTPS%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B/"><img class="next-cover" src="/img/bj.jpeg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">HTTPS握手过程</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/option.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">陈鑫寒</div><div class="author-info__description">当一切都不顺利时，就向左走</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">62</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">1</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2022/05/24/HTTPS%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" title="HTTPS工作原理"><img src="/img/bj.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="HTTPS工作原理"/></a><div class="content"><a class="title" href="/2022/05/24/HTTPS%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" title="HTTPS工作原理">HTTPS工作原理</a><time datetime="2022-05-24T14:35:24.000Z" title="发表于 2022-05-24 22:35:24">2022-05-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/05/24/HTTPS%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B/" title="HTTPS握手过程"><img src="/img/bj.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="HTTPS握手过程"/></a><div class="content"><a class="title" href="/2022/05/24/HTTPS%E6%8F%A1%E6%89%8B%E8%BF%87%E7%A8%8B/" title="HTTPS握手过程">HTTPS握手过程</a><time datetime="2022-05-24T14:32:27.000Z" title="发表于 2022-05-24 22:32:27">2022-05-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/05/24/%E7%9A%84%E5%8C%BA%E5%88%AB/" title="GET 和 POST 的区别"><img src="/img/bj.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="GET 和 POST 的区别"/></a><div class="content"><a class="title" href="/2022/05/24/%E7%9A%84%E5%8C%BA%E5%88%AB/" title="GET 和 POST 的区别">GET 和 POST 的区别</a><time datetime="2022-05-24T14:30:18.000Z" title="发表于 2022-05-24 22:30:18">2022-05-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/05/24/HTTP%E7%8A%B6%E6%80%81%E7%A0%81/" title="HTTP状态码"><img src="/img/bj.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="HTTP状态码"/></a><div class="content"><a class="title" href="/2022/05/24/HTTP%E7%8A%B6%E6%80%81%E7%A0%81/" title="HTTP状态码">HTTP状态码</a><time datetime="2022-05-24T14:16:54.000Z" title="发表于 2022-05-24 22:16:54">2022-05-24</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2022/05/23/jsonp%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" title="jsonp的工作原理"><img src="/img/bj.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="jsonp的工作原理"/></a><div class="content"><a class="title" href="/2022/05/23/jsonp%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/" title="jsonp的工作原理">jsonp的工作原理</a><time datetime="2022-05-23T07:46:18.000Z" title="发表于 2022-05-23 15:46:18">2022-05-23</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2015 - 2022 By 陈鑫寒</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">本地搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
